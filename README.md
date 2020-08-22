@@ -1,18 +1,57 @@
-# Opinionated Nix repository template
+# To get nix and set up the binary cache
 
-Based on [nix.dev](https://nix.dev) tutorials, repository template to get you started with [Nix](https://nixos.org/):
+Follow the instructions [here](https://app.cachix.org/cache/mjlbach) to set up nix and add my cachix cache which provides precompiled binaries, built against the nixos-unstable channel each night.
 
-- [niv](https://github.com/nmattia/niv) for painless dependency management (aka pinning) with a daily cronjob to bump dependencies
-- [gitignore.nix](https://github.com/hercules-ci/gitignore.nix) for respecting `.gitignore` when using your project as a source
-- [pre-commit-hooks.nix](https://github.com/cachix/pre-commit-hooks.nix) for running linters (defaults to `shellcheck`, `nix-linter` and `nixpkgs-fmt`) when committing and on the CI
-- [direnv](https://direnv.net/) for automatically loading your developer environment
-- [GitHub Actions](https://github.com/features/actions) for CI with [dependabot](https://dependabot.com/) automatically bumping GitHub Actions versions
+# To use the overlay (if you're managing/compiling your emacs packages via nix)
 
-## Getting started
+Add the following to your $HOME/.config/nixpkgs/overlays directory: (make a file $HOME/.config/nixpkgs/overlays/emacs.nix and paste the snippet below into that file)
 
-1. Follow tutorial for [creating a binary cache](https://nix.dev/tutorials/continuous-integration-github-actions.html)
-2. Replace ``nix-getting-started-template`` in ``.github/workflows/test.yml`` with the name of your binary cache
+```nix
+self: super:
+import (builtins.fetchTarball {
+      url = https://github.com/mjlbach/emacs-pgtk-nativecomp-overlay/archive/master.tar.gz;
+    })
+```
 
-## Using the project
+Install emacsGccPgtk:
+```
+nix-env -iA nixpkgs.emacsGccPgtk
+```
+or add to home-manager/configuration.nix.
 
-Follow [direnv setup](https://nix.dev/tutorials/declarative-and-reproducible-developer-environments.html#direnv-automatically-activating-the-environment-on-directory-change) and run `direnv allow`
+
+# To use the overlay (if you're managing/compiling your emacs packages via straight.el or another package manager)
+Emacs must be wrapped with the appropriate library path in order to find libgccjit and requisite libraries. Add the following to your $HOME/.config/nixpkgs/overlays directory: (make a file $HOME/.config/nixpkgs/overlays/emacs.nix and paste the snippet below into that file)
+```nix
+self: super:
+let
+  libPath = with super; lib.concatStringsSep ":" [
+    "${lib.getLib libgccjit}/lib/gcc/${stdenv.targetPlatform.config}/${libgccjit.version}"
+    "${lib.getLib stdenv.cc.cc}/lib"
+    "${lib.getLib stdenv.glibc}/lib"
+  ];
+  emacs-overlay=import (builtins.fetchTarball {
+          url = https://github.com/mjlbach/emacs-pgtk-nativecomp-overlay/archive/master.tar.gz;
+        });
+in {
+  emacsGccPgtkWrapped = super.symlinkJoin {
+    name = "emacsGccPgtkWrapped";
+    paths = [ emacs-overlay.emacsGccPgtk ];
+    buildInputs = [ super.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/emacs \
+      --set LIBRARY_PATH ${libPath}
+    '';
+    meta.platforms = super.stdenv.lib.platforms.linux;
+    passthru.nativeComp = true;
+    src = emacs-overlay.emacsGccPgtk.src;
+  };
+} 
+
+```
+Install emacsGccPgtkWrapped:
+```
+nix-env -iA nixpkgs.emacsGccPgtkWrapped
+```
+or add to home-manager/configuration.nix.
+

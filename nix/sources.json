@@ -1,14 +1,38 @@
 {
+    "emacs-pgtk-nativecomp": {
+        "branch": "pgtk-nativecomp",
+        "description": "Mirror of GNU Emacs",
+        "homepage": "http://www.gnu.org/software/emacs/",
+        "owner": "fejfighter",
+        "repo": "emacs",
+        "rev": "b7adb08f960fe6568f702b8f328e65e3833ffc13",
+        "sha256": "0p852k5wf8sy9h7x2z6iivf9xnhpy85vly9fn0a1qj2japrhvyr2",
+        "type": "tarball",
+        "url": "https://github.com/fejfighter/emacs/archive/b7adb08f960fe6568f702b8f328e65e3833ffc13.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "gitignore.nix": {
         "branch": "master",
         "description": "Nix function for filtering local git sources",
         "homepage": "",
         "owner": "hercules-ci",
         "repo": "gitignore.nix",
-        "rev": "647d0821b590ee96056f4593640534542d8700e5",
-        "sha256": "0ks37vclz2jww9q0fvkk9jyhscw0ial8yx2fpakra994dm12yy1d",
+        "rev": "c4662e662462e7bf3c2a968483478a665d00e717",
+        "sha256": "1npnx0h6bd0d7ql93ka7azhj40zgjp815fw2r6smg8ch9p7mzdlx",
         "type": "tarball",
-        "url": "https://github.com/hercules-ci/gitignore.nix/archive/647d0821b590ee96056f4593640534542d8700e5.tar.gz",
+        "url": "https://github.com/hercules-ci/gitignore.nix/archive/c4662e662462e7bf3c2a968483478a665d00e717.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixos-unstable": {
+        "branch": "nixos-unstable",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c59ea8b8a0e7f927e7291c14ea6cd1bd3a16ff38",
+        "sha256": "1ak7jqx94fjhc68xh1lh35kh3w3ndbadprrb762qgvcfb8351x8v",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/c59ea8b8a0e7f927e7291c14ea6cd1bd3a16ff38.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -17,10 +41,10 @@
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "add5529b3ee2df5035d7fb06120b74363a373be4",
-        "sha256": "0kq17m6y77alj7y8z3kvyydws3rzv3j2jy3836qp875jk3gx06ap",
+        "rev": "b83b54d0a8336746e4cd130bb7beb2ddd032ac87",
+        "sha256": "1zviwn53sig35r2vpsljwhq3yi9j8kw2662qrxgm4s4ynxsghf1r",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/add5529b3ee2df5035d7fb06120b74363a373be4.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/b83b54d0a8336746e4cd130bb7beb2ddd032ac87.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pre-commit-hooks.nix": {
@@ -29,10 +53,10 @@
         "homepage": "",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "16d4ca0a800bd7716f4d786c259ee35b14804180",
-        "sha256": "0snqf3nq58r95dflcrhf479krfsyq49hmqwdzd2d6lb7k41n508s",
+        "rev": "14595eb18d15d6832a5c7137aefa095a624ba948",
+        "sha256": "09hx3qa936g27jz81wbr93dvi0mvj3771midvpkxm4f7wwqjh9ki",
         "type": "tarball",
-        "url": "https://github.com/cachix/pre-commit-hooks.nix/archive/16d4ca0a800bd7716f4d786c259ee35b14804180.tar.gz",
+        "url": "https://github.com/cachix/pre-commit-hooks.nix/archive/14595eb18d15d6832a5c7137aefa095a624ba948.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
