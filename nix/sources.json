@@ -1,0 +1,38 @@
+{
+    "gitignore.nix": {
+        "branch": "master",
+        "description": "Nix function for filtering local git sources",
+        "homepage": "",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "rev": "647d0821b590ee96056f4593640534542d8700e5",
+        "sha256": "0ks37vclz2jww9q0fvkk9jyhscw0ial8yx2fpakra994dm12yy1d",
+        "type": "tarball",
+        "url": "https://github.com/hercules-ci/gitignore.nix/archive/647d0821b590ee96056f4593640534542d8700e5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixos-20.03",
+        "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
+        "homepage": "https://github.com/NixOS/nixpkgs",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "add5529b3ee2df5035d7fb06120b74363a373be4",
+        "sha256": "0kq17m6y77alj7y8z3kvyydws3rzv3j2jy3836qp875jk3gx06ap",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/add5529b3ee2df5035d7fb06120b74363a373be4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "pre-commit-hooks.nix": {
+        "branch": "master",
+        "description": "Seamless integration of https://pre-commit.com git hooks with Nix.",
+        "homepage": "",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "rev": "16d4ca0a800bd7716f4d786c259ee35b14804180",
+        "sha256": "0snqf3nq58r95dflcrhf479krfsyq49hmqwdzd2d6lb7k41n508s",
+        "type": "tarball",
+        "url": "https://github.com/cachix/pre-commit-hooks.nix/archive/16d4ca0a800bd7716f4d786c259ee35b14804180.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
