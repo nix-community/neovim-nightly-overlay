@@ -1,14 +1,26 @@
 {
-    "emacs-pgtk-nativecomp": {
-        "branch": "pgtk-nativecomp",
-        "description": "Mirror of GNU Emacs",
-        "homepage": "http://www.gnu.org/software/emacs/",
-        "owner": "fejfighter",
-        "repo": "emacs",
-        "rev": "b7adb08f960fe6568f702b8f328e65e3833ffc13",
-        "sha256": "0p852k5wf8sy9h7x2z6iivf9xnhpy85vly9fn0a1qj2japrhvyr2",
+    "neovim": {
+        "branch": "master",
+        "description": "Vim-fork focused on extensibility and usability",
+        "homepage": "https://neovim.io",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "8c49e3d50959e24dadd688f56a18f104bd5fd934",
+        "sha256": "1qqmfys8hm60j4hgw861yad2x94jadd7247jjgqsxl4ij123hgdg",
         "type": "tarball",
-        "url": "https://github.com/fejfighter/emacs/archive/b7adb08f960fe6568f702b8f328e65e3833ffc13.tar.gz",
+        "url": "https://github.com/neovim/neovim/archive/8c49e3d50959e24dadd688f56a18f104bd5fd934.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-unstable": {
+        "branch": "nixpkgs-unstable",
+        "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
+        "homepage": "https://github.com/NixOS/nixpkgs",
+        "owner": "NixOS",
+        "repo": "nixpkgs-channels",
+        "rev": "40ae9e79dda88912d37d83a7a07bb5d863425c2a",
+        "sha256": "0basm2rib6kyxkf21r9hfp1zrbh8lf12anvsc8yq6jj045k3zp80",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs-channels/archive/40ae9e79dda88912d37d83a7a07bb5d863425c2a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gitignore.nix": {
@@ -21,18 +33,6 @@
         "sha256": "1npnx0h6bd0d7ql93ka7azhj40zgjp815fw2r6smg8ch9p7mzdlx",
         "type": "tarball",
         "url": "https://github.com/hercules-ci/gitignore.nix/archive/c4662e662462e7bf3c2a968483478a665d00e717.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "nixos-unstable": {
-        "branch": "nixos-unstable",
-        "description": "Nix Packages collection",
-        "homepage": null,
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c59ea8b8a0e7f927e7291c14ea6cd1bd3a16ff38",
-        "sha256": "1ak7jqx94fjhc68xh1lh35kh3w3ndbadprrb762qgvcfb8351x8v",
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/c59ea8b8a0e7f927e7291c14ea6cd1bd3a16ff38.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
