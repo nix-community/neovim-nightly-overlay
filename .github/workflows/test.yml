@@ -16,5 +16,5 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         # Only needed for private caches
         #authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - run: nix-build
+    - run: nix-build build.nix
     - run: nix-shell --run "echo OK"

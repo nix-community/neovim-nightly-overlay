@@ -7,7 +7,6 @@ Follow the instructions [here](https://app.cachix.org/cache/mjlbach) to set up n
 Add the following to your $HOME/.config/nixpkgs/overlays directory: (make a file $HOME/.config/nixpkgs/overlays/neovim.nix and paste the snippet below into that file)
 
 ```nix
-self: super:
 import (builtins.fetchTarball {
       url = https://github.com/mjlbach/neovim-nightly-overlay/archive/master.tar.gz;
     })
