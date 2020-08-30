@@ -5,5 +5,5 @@ let
   pkgs = import nixpkgs { config = {}; overlays = [ neovim-nightly-overlay ]; };
 in
 {
-  emacsGccPgtk = pkgs.neovim-nightly;
+  neovim-nightly = pkgs.neovim-nightly;
 }
