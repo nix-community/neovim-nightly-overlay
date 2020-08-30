@@ -7,6 +7,7 @@ _: _:
   {
     neovim-nightly = pkgs.neovim-unwrapped.overrideAttrs (
       _: {
+        name = "neovim-nightly";
         version = "master";
         src = pkgs.fetchFromGitHub {
           inherit (sources.neovim) owner repo rev sha256;
