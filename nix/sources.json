@@ -17,10 +17,10 @@
         "homepage": "https://neovim.io",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "3853276d9cacc99a2698117e904475dbf7033383",
-        "sha256": "1qsra4yi0l9nv9m6mb2nkhxll2251q6jhf4wnsild6qikh8mv3p7",
+        "rev": "e57ea5f2a9437a1988510f2c53c449e89dffa155",
+        "sha256": "1mq6d00rxz9y4m04p11cxpgm7sgvfiwkn0zgqzygpl34rnxrj7pf",
         "type": "tarball",
-        "url": "https://github.com/neovim/neovim/archive/3853276d9cacc99a2698117e904475dbf7033383.tar.gz",
+        "url": "https://github.com/neovim/neovim/archive/e57ea5f2a9437a1988510f2c53c449e89dffa155.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -41,10 +41,10 @@
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
         "repo": "nixpkgs-channels",
-        "rev": "fd457ecb6cc57d4d22f97328587cb7cd4150c75b",
-        "sha256": "1vvy2gw5kz4mr5r7zgg7x3w5121ks870j0jj1qyj18l4f4spifxm",
+        "rev": "49f820d217f4069472ca8f8f96d1c5681a747f7d",
+        "sha256": "0dg33j2a0w11gsk6vlkwry4zgfm0wxqbmf00s2mirvvwr26mbqww",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs-channels/archive/fd457ecb6cc57d4d22f97328587cb7cd4150c75b.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs-channels/archive/49f820d217f4069472ca8f8f96d1c5681a747f7d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pre-commit-hooks.nix": {
