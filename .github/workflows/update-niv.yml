@@ -9,8 +9,10 @@ jobs:
   update-dependencies:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.3.2
+    - uses: actions/checkout@v2.3.3
     - uses: cachix/install-nix-action@v11
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
     # https://github.com/nmattia/niv/issues/280
     - run: GITHUB_PATH= nix-shell --run "niv update"
     - uses: cachix/cachix-action@v6
@@ -20,7 +22,7 @@ jobs:
         # Only needed for private caches
         #authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: nix-build
-    - run: nix-shell --run "echo OK"
+    - run: nix-shell --run "pre-commit run -a"
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
