@@ -17,10 +17,10 @@
         "homepage": "https://neovim.io",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "a22fe09b90a52f451d9fd8d3372b8c390dd1dc1a",
-        "sha256": "0srlzxbkbhgjxy7wvlggp5zzw1cwnm9hry4mafnqlb6clngw2acr",
+        "rev": "b6897ebc0c623d0a74c221c3030c7eaf17b7e151",
+        "sha256": "1ibcc1v417a2fng0aliv7f53syz4lrjkjpfwfaym135wirjlv917",
         "type": "tarball",
-        "url": "https://github.com/neovim/neovim/archive/a22fe09b90a52f451d9fd8d3372b8c390dd1dc1a.tar.gz",
+        "url": "https://github.com/neovim/neovim/archive/b6897ebc0c623d0a74c221c3030c7eaf17b7e151.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -53,10 +53,10 @@
         "homepage": "",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "519988762d02e8ed7204723349f15cc31cb8a38e",
-        "sha256": "169nhrg3bkvm0zqnrciapbpdvqdy3i772ijx9zjv6490i6ilp072",
+        "rev": "efdbd6d28f7f44db3d9f8cf0e0b4cb9db0d259e1",
+        "sha256": "1qngfbp1bqn52ipf992vrj4vp1cvvcv2yvzp0fs9yawqjxzk4j5m",
         "type": "tarball",
-        "url": "https://github.com/cachix/pre-commit-hooks.nix/archive/519988762d02e8ed7204723349f15cc31cb8a38e.tar.gz",
+        "url": "https://github.com/cachix/pre-commit-hooks.nix/archive/efdbd6d28f7f44db3d9f8cf0e0b4cb9db0d259e1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
