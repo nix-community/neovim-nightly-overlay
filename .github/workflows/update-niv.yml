@@ -16,7 +16,7 @@ jobs:
         nix_path: nixpkgs=channel:nixos-unstable
     # https://github.com/nmattia/niv/issues/280
     - run: GITHUB_PATH= nix-shell --run "niv update"
-    - uses: cachix/cachix-action@v6
+    - uses: cachix/cachix-action@v7
       with:
         name: mjlbach
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
