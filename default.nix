@@ -25,9 +25,7 @@ _: _:
     old: {
       pname = "neovim-nightly";
       version = "master";
-      src = pkgs.fetchFromGitHub {
-        inherit (sources.neovim) owner repo rev sha256;
-      };
+      src = sources.neovim;
 
       buildInputs = old.buildInputs ++ [ tree-sitter ];
     }
