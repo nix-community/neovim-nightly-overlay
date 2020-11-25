@@ -14,7 +14,7 @@ import (builtins.fetchTarball {
 
 Install neovim-nightly:
 ```
-nix-env -iA nixpkgs.neovim-nightly
+nix-env -iA pkgs.neovim-nightly
 ```
 or add to home-manager/configuration.nix.
 
