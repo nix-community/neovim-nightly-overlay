@@ -17,10 +17,10 @@
         "homepage": "https://neovim.io",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "c348e816fc530f185d799270ad3c39bd0d6799a6",
-        "sha256": "1dlrrc27sczlav5ap79za9qa55w2r8sf8747xzffgkqrd34g91pw",
+        "rev": "ee5ece084cf76fc90f0bd3aa4e0ddeaaca0bc51a",
+        "sha256": "1cq6q4fh8cji322pkv5zsmnlgsv8fi4af0bl7xf9am02szbxy0rp",
         "type": "tarball",
-        "url": "https://github.com/neovim/neovim/archive/c348e816fc530f185d799270ad3c39bd0d6799a6.tar.gz",
+        "url": "https://github.com/neovim/neovim/archive/ee5ece084cf76fc90f0bd3aa4e0ddeaaca0bc51a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz",
         "version": "0fce70252d8e5ccf4cb6f141d1c388966f9f3482"
     },
@@ -30,10 +30,10 @@
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2fbcd0b9df95306199407e36a038d2cc3aa24786",
-        "sha256": "1q51cc51vv02yibj6dwaqp7zv3pz1iqnbzlvmv2fks6pj58xv03w",
+        "rev": "99f8282a65821f148df596ba389606e732eaf99d",
+        "sha256": "1mm4j1vjs875yzv03plng43ivny0qm09hxpn0if8g9vc849rwc2g",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/2fbcd0b9df95306199407e36a038d2cc3aa24786.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/99f8282a65821f148df596ba389606e732eaf99d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-unstable": {
@@ -42,10 +42,10 @@
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b3abbd61f52ec1acc08a0c49972c4a152e657f1f",
-        "sha256": "15f4bzsw8ivp0vx8b3jdm4vgmj4cbn02pk3jvkjj4hdlcvgnhyma",
+        "rev": "cf7475d2061ac3ada4b226571a4a1bb91420b578",
+        "sha256": "17yj9ymnpsggyxalpi2f85l4r4v989izjipqfyik21nxyn4zd7wg",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/b3abbd61f52ec1acc08a0c49972c4a152e657f1f.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/cf7475d2061ac3ada4b226571a4a1bb91420b578.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pre-commit-hooks.nix": {
