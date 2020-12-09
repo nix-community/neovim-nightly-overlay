@@ -15,7 +15,7 @@ import (builtins.fetchTarball {
 If usings flakes, add to your nixpkgs overlays attribute (examples will differ, the following is for home-manager):
 ```nix
 {
-  inputs.neovim-nightly-overlay.url = "github:mjlbach/neovim-nightly-overlay/flakes";
+  inputs.neovim-nightly-overlay.url = "github:mjlbach/neovim-nightly-overlay";
   outputs = { self, ... }@inputs:
     let
       overlays = [
