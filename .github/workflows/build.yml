@@ -20,10 +20,6 @@ jobs:
           experimental-features = nix-command flakes
     - uses: cachix/cachix-action@v8
       with:
-        name: nix-community
-        skipNixBuild: true
-    - uses: cachix/cachix-action@v8
-      with:
         name: mjlbach
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - run: nix build 
