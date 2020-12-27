@@ -25,10 +25,13 @@ jobs:
         #authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
         # - run: nix build
     # - run: nix-shell --run "echo OK"
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
+    #- name: Create Pull Request
+    #  uses: peter-evans/create-pull-request@v3
+    #  with:
+    #    token: "${{ secrets.GITHUB_TOKEN }}"
+    #    commit-message: "[automation] update flake dependencies"
+    #    title: "[automation] update flake dependencies"
+    #    branch: "automation/update-flake-dependencies"
+    - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        token: "${{ secrets.GITHUB_TOKEN }}"
-        commit-message: "[automation] update flake dependencies"
-        title: "[automation] update flake dependencies"
-        branch: "automation/update-flake-dependencies"
+        commit_message: "[automation] update flake dependencies"
