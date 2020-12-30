@@ -1,21 +1,17 @@
-# To get nix and set up the binary cache
-
-Follow the instructions [here](https://app.cachix.org/cache/mjlbach) to set up nix and add my cachix cache which provides precompiled binaries, built against the nixpkgs-unstable channel each night.
-
 # To use the overlay 
 
 Add the following to your $HOME/.config/nixpkgs/overlays directory: (make a file $HOME/.config/nixpkgs/overlays/neovim.nix and paste the snippet below into that file)
 
 ```nix
 import (builtins.fetchTarball {
-      url = https://github.com/mjlbach/neovim-nightly-overlay/archive/master.tar.gz;
+      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
     })
 ```
 
 If usings flakes, add to your nixpkgs overlays attribute (examples will differ, the following is for home-manager):
 ```nix
 {
-  inputs.neovim-nightly-overlay.url = "github:mjlbach/neovim-nightly-overlay";
+  inputs.neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   outputs = { self, ... }@inputs:
     let
       overlays = [
@@ -41,3 +37,8 @@ nix-env -iA pkgs.neovim-nightly
 ```
 or add to home-manager/configuration.nix.
 
+*** Binary cache
+
+You will want to use the [[https://nix-community.org/#binary-cache][nix-community binary cache]]. Where the
+overlay's build artefacts are pushed. See [[https://app.cachix.org/cache/nix-community][here]] for installation
+instructions.
