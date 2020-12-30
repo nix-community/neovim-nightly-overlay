@@ -37,7 +37,7 @@ nix-env -iA pkgs.neovim-nightly
 ```
 or add to home-manager/configuration.nix.
 
-*** Binary cache
+# Binary cache
 
 You will want to use the [[https://nix-community.org/#binary-cache][nix-community binary cache]]. Where the
 overlay's build artefacts are pushed. See [[https://app.cachix.org/cache/nix-community][here]] for installation
