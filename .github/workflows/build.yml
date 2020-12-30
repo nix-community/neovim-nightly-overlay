@@ -24,7 +24,7 @@ jobs:
           experimental-features = nix-command flakes
     - uses: cachix/cachix-action@v8
       with:
-        name: mjlbach
+        name: nix-community
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - run: nix build 
     # - run: nix-shell --run "echo OK"

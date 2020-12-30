@@ -19,7 +19,7 @@ jobs:
     - run: nix flake update --recreate-lock-file
     - uses: cachix/cachix-action@v8
       with:
-        name: mjlbach
+        name: nix-community
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         # Only needed for private caches
         #authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
