@@ -39,6 +39,6 @@ or add to home-manager/configuration.nix.
 
 # Binary cache
 
-You will want to use the [[https://nix-community.org/#binary-cache][nix-community binary cache]]. Where the
-overlay's build artefacts are pushed. See [[https://app.cachix.org/cache/nix-community][here]] for installation
+You will want to use the [nix-community binary cache](https://nix-community.org/#binary-cache). Where the
+overlay's build artefacts are pushed. See [here](https://app.cachix.org/cache/nix-community) for installation
 instructions.
