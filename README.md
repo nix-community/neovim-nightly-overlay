@@ -1,11 +1,15 @@
 # To use the overlay 
 
-Add the following to your $HOME/.config/nixpkgs/overlays directory: (make a file $HOME/.config/nixpkgs/overlays/neovim.nix and paste the snippet below into that file)
+Add the following to your home.nix (home-manager) or configuration.nix (nixos):
 
 ```nix
-import (builtins.fetchTarball {
+{
+nixpkgs.overlays = [ 
+    (import (builtins.fetchTarball {
       url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-    })
+    }))
+   ];
+}
 ```
 
 If usings flakes, add to your nixpkgs overlays attribute (examples will differ, the following is for home-manager):
