@@ -50,11 +50,11 @@
     "neovim-nightly": {
       "flake": false,
       "locked": {
-        "lastModified": 1614958070,
-        "narHash": "sha256-rnlGneKbkVwfYFieuh+1MnHB0NUrWJEdjLP57WltMcA=",
+        "lastModified": 1615052457,
+        "narHash": "sha256-NjS/ZIIb/RE3kYp83+BddEUBrwD+mS0UC9ggdRdmT6k=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "3fbff98cfd48941ceac086543dd7d6bcdbfb18ab",
+        "rev": "0496b572ac8fb0e157f97f02d692aaa9055f6c1e",
         "type": "github"
       },
       "original": {
@@ -65,11 +65,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1614684350,
-        "narHash": "sha256-8IkjOtF7nFI7xVGm541Tusy7L7a1td1dBE6gad4mVhw=",
+        "lastModified": 1614792312,
+        "narHash": "sha256-LSUtjvYOxcSP1ewymGYp4AawiWDISKZHuCTxsaXir4k=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d12574353329291e661805312544b1c68c13911e",
+        "rev": "a2b0ea6865b2346ceb015259c76e111dcca039c5",
         "type": "github"
       },
       "original": {
