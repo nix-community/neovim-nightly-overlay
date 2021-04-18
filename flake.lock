@@ -31,22 +31,6 @@
         "type": "github"
       }
     },
-    "gitignore": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1611672876,
-        "narHash": "sha256-qHu3uZ/o9jBHiA3MEKHJ06k7w4heOhA+4HCSIvflRxo=",
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "rev": "211907489e9f198594c0eb0ca9256a1949c9d412",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "type": "github"
-      }
-    },
     "neovim-nightly": {
       "flake": false,
       "locked": {
@@ -79,30 +63,12 @@
         "type": "github"
       }
     },
-    "pre-commit-hooks": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1617783930,
-        "narHash": "sha256-SigoU2LWM1fMggqfM9H8XEIvjOjBVQ/wj/zrn02J28c=",
-        "owner": "cachix",
-        "repo": "pre-commit-hooks.nix",
-        "rev": "2d169bb1b23f3b71a894a66ea81f45c788943248",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cachix",
-        "repo": "pre-commit-hooks.nix",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
-        "gitignore": "gitignore",
         "neovim-nightly": "neovim-nightly",
-        "nixpkgs": "nixpkgs",
-        "pre-commit-hooks": "pre-commit-hooks"
+        "nixpkgs": "nixpkgs"
       }
     }
   },

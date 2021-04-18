@@ -5,8 +5,6 @@
   inputs.flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.neovim-nightly = { url = "github:neovim/neovim"; flake = false; };
-  inputs.gitignore = { url = "github:hercules-ci/gitignore.nix"; flake = false;};
-  inputs.pre-commit-hooks= { url = "github:cachix/pre-commit-hooks.nix"; flake = false;};
 
   outputs = { self, ... }@inputs:
     with inputs;
@@ -36,7 +34,6 @@
       in
       {
         defaultPackage = pkgs.neovim-nightly;
-        devShell = import ./shell.nix { inherit pkgs inputs; };
       }
     );
 }
