@@ -1,39 +1,21 @@
 {
-  description = "Neovim nightly overlay";
+  description = "Neovim flake";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-  inputs.flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.neovim-nightly = { url = "github:neovim/neovim"; flake = false; };
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
+    neovim-flake.url = "github:neovim/neovim?dir=contrib";
+    neovim-flake.inputs.nixpkgs.follows = "nixpkgs";
+  };
 
-  outputs = { self, ... }@inputs:
-    with inputs;
-    {
-      overlay = final: prev:
-        let
-          pkgs = inputs.nixpkgs.legacyPackages.${prev.system};
-        in
-        {
-          neovim-nightly = pkgs.neovim-unwrapped.overrideAttrs (
-            old: {
-              pname = "neovim-nightly";
-              version = "master";
-              src = inputs.neovim-nightly;
-
-              buildInputs = old.buildInputs ++ [ pkgs.tree-sitter ];
-            }
-          );
-        };
-    } //
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          overlays = [ self.overlay ];
-          inherit system;
-        };
-      in
-      {
-        defaultPackage = pkgs.neovim-nightly;
-      }
-    );
+  outputs = { self, nixpkgs, neovim-flake, ... }:
+    rec {
+      inherit (neovim-flake) packages defaultPackage apps defaultApp devShell;
+      overlay = final: prev: rec {
+        neovim-unwrapped = neovim-flake.packages.${prev.system}.neovim;
+        neovim-nightly = neovim-flake.packages.${prev.system}.neovim;
+        neovim-debug = neovim-flake.packages.${prev.system}.neovim-debug;
+        neovim-developer = neovim-flake.packages.${prev.system}.neovim-developer;
+      };
+    };
 }
