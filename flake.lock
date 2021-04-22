@@ -40,11 +40,11 @@
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1618990156,
-        "narHash": "sha256-Y3K2P8bIbHf6ytBtudcycJcvmgA0qpnJ3hG6L1Q6i+g=",
+        "lastModified": 1619054584,
+        "narHash": "sha256-GpU4ERuwY9RBPHegQUxivzVqT2nqd/uCz5BZ6q72zjk=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "d7f9e58e40bd9f2449adf81788a4fab97859d5cc",
+        "rev": "4570d04b16b4de0731455681f4db4bd27c77fc4c",
         "type": "github"
       },
       "original": {
