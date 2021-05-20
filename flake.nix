@@ -34,6 +34,7 @@
       packages = neovim-flake.packages // {
         #
         "${system}".neovim-telescope = pkgs.neovim-telescope;
+        "${system}".neovim-lsp = pkgs.neovim-lsp;
       };
 
       overlay = final: prev: rec {
@@ -42,28 +43,46 @@
         neovim-debug = neovim-flake.packages.${prev.system}.neovim-debug;
         neovim-developer = neovim-flake.packages.${prev.system}.neovim-developer;
 
-        # configs
-        # lsp-config = 
-        # treesitter-config =
-        telescope-config = final.neovimUtils.makeNeovimConfig {
-          # inherit (cfg)
-          #   extraPython3Packages withPython3 extraPythonPackages withPython
-          #   withNodeJs withRuby viAlias vimAlias;
-          # inherit customRC;
-          luaRc = ''
-            vim.lsp.set_log_level("info")
-          '';
-          # configure = cfg.configure // moduleConfigure;
 
-          # plugins = with final.vimPlugins; [ telescope-frecency-nvim ];
+        config-treesitter = {
+          customRc = ''
+          '';
+
+          plugins = with final.vimPlugins; [
+            { plugin = nvim-treesitter; }
+            # { plugin = nvim-lightbulb; }
+            # { plugin = telescope-symbols-nvim; }
+          ];
         };
 
-        neovim-telescope = final.wrapNeovim neovim-unwrapped 
-        # {};
-        telescope-config;
-                # {
-        # plugin = telescope-frecency-nvim;
-      # }
+        # configs
+        config-lsp = {
+          customRc = ''
+          '';
+
+          plugins = with final.vimPlugins; [
+            { plugin = nvim-lspconfig; }
+            { plugin = nvim-lightbulb; }
+            { plugin = telescope-symbols-nvim; }
+          ];
+        };
+
+        # treesitter-config =
+        # final.neovimUtils.makeNeovimConfig
+        config-telescope = {
+          customRc = ''
+          '';
+
+          plugins = with final.vimPlugins; [
+            { plugin = telescope-frecency-nvim; }
+            { plugin = telescope-fzf-writer-nvim; }
+            { plugin = telescope-symbols-nvim; }
+          ];
+        };
+
+        neovim-telescope = final.wrapNeovimUnstable neovim-unwrapped config-telescope;
+        neovim-lsp = final.wrapNeovimUnstable neovim-unwrapped config-lsp;
+        neovim-treesitter = final.wrapNeovimUnstable neovim-unwrapped config-treesitter;
 
       };
     };
