@@ -2,7 +2,7 @@
   description = "Neovim flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:teto/nixpkgs?rev=4a860879ea76c2be86a696cb885cc51bfe8f61fa";
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     neovim-flake.url = "github:neovim/neovim?dir=contrib";
     neovim-flake.inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +23,8 @@
       # }
       system = "x86_64-linux";
 
+
+
       pkgs = import nixpkgs {
         overlays = [ self.overlay ];
         inherit system;
@@ -31,11 +33,15 @@
     rec {
       inherit (neovim-flake) defaultPackage apps defaultApp devShell;
 
-      packages = neovim-flake.packages // {
+      packages = neovim-flake.packages
+        // {
         #
-        "${system}".neovim-telescope = pkgs.neovim-telescope;
-        "${system}".neovim-lsp = pkgs.neovim-lsp;
-      };
+        "${system}" = neovim-flake.packages."${system}" // {
+          neovim-telescope = pkgs.neovim-telescope;
+          neovim-lsp = pkgs.neovim-lsp;
+        };
+       }
+      ;
 
       overlay = final: prev: rec {
         neovim-unwrapped = neovim-flake.packages.${prev.system}.neovim;
@@ -44,7 +50,7 @@
         neovim-developer = neovim-flake.packages.${prev.system}.neovim-developer;
 
 
-        config-treesitter = {
+        config-treesitter = final.neovimUtils.makeNeovimConfig {
           customRc = ''
           '';
 
@@ -56,7 +62,7 @@
         };
 
         # configs
-        config-lsp = {
+        config-lsp = final.neovimUtils.makeNeovimConfig {
           customRc = ''
           '';
 
@@ -69,7 +75,7 @@
 
         # treesitter-config =
         # final.neovimUtils.makeNeovimConfig
-        config-telescope = {
+        config-telescope = final.neovimUtils.makeNeovimConfig {
           customRc = ''
           '';
 
