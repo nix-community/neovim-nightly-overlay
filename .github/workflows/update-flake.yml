@@ -1,4 +1,4 @@
-name: Update Flake
+name: Update Flok
 
 on:
   schedule:
@@ -15,8 +15,8 @@ jobs:
       with:
         install_url: https://github.com/numtide/nix-flakes-installer/releases/download/nix-3.0pre20201007_5257a25/install
         extra_nix_config: |
-          experimental-features = nix-command flakes
-    - run: nix flake update --recreate-lock-file
+          experimental-features = nix-command floks
+    - run: nix flok update --recreate-lock-file
     - uses: cachix/cachix-action@v8
       with:
         name: nix-community
@@ -29,9 +29,9 @@ jobs:
     #  uses: peter-evans/create-pull-request@v3
     #  with:
     #    token: "${{ secrets.GITHUB_TOKEN }}"
-    #    commit-message: "[automation] update flake dependencies"
-    #    title: "[automation] update flake dependencies"
-    #    branch: "automation/update-flake-dependencies"
+    #    commit-message: "[automation] update flok dependencies"
+    #    title: "[automation] update flok dependencies"
+    #    branch: "automation/update-flok-dependencies"
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: "[automation] update flake dependencies"
+        commit_message: "[automation] update flok dependencies"
