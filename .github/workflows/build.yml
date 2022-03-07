@@ -27,9 +27,6 @@ jobs:
         os: [macos-10.15, ubuntu-latest]
     steps:
     - uses: actions/checkout@v3
-      with:
-        # Nix Flakes doesn't work on shallow clones
-        fetch-depth: 0
     - uses: cachix/install-nix-action@v16
       with:
         extra_nix_config: |
@@ -39,4 +36,3 @@ jobs:
         name: nix-community
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - run: nix build 
-    # - run: nix-shell --run "echo OK"
