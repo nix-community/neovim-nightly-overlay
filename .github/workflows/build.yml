@@ -1,9 +1,22 @@
 name: "Build"
 
 on:
+  # Build on push to master
   push:
+    branches:
+      - master
+
+  # Build on internal pull requests
   pull_request:
+
+  # Allow to trigger for external PRs
   workflow_dispatch:
+
+  # Also run regularly because pushes initiated by GitHub Actions don't
+  # trigger the above events.
+  schedule:
+    # every day at 8am UTC
+    - cron: '10 8 * * *'
 
 jobs:
   build:
@@ -15,4 +28,4 @@ jobs:
       with:
         name: nix-community
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - run: nix build
+    - run: nix build 
