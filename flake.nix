@@ -14,8 +14,8 @@
       packages = forAllSystems (system: { inherit (neovim-flake.packages.${system}) default neovim; });
       defaultPackage = forAllSystems (system: neovim-flake.packages.${system}.default);
       overlay = final: prev: {
-        neovim-unwrapped = self.packages.${prev.system}.neovim;
-        neovim-nightly = self.packages.${prev.system}.neovim;
+        neovim-unwrapped = neovim-flake.packages.${prev.system}.neovim;
+        neovim-nightly = neovim-flake.packages.${prev.system}.neovim;
       };
       herculesCI = {
         ciSystems = [ "x86_64-linux" "aarch64-linux" ]; # These are the only systems avaiable currently for our Hercules-CI infra.
