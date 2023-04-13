@@ -11,17 +11,8 @@
   outputs = { self, nixpkgs, neovim-flake, ... }:
     let forAllSystems = (nixpkgs.lib.genAttrs [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ]); in
     {
-      packages = forAllSystems (system: rec {
-        neovim = neovim-flake.packages.${system}.neovim.overrideAttrs (old: {
-          # TODO Remove once neovim 0.9.0 is released.
-          patches = builtins.filter
-            (p:
-              (if builtins.typeOf p == "set" then baseNameOf p.name else baseNameOf) != "neovim-build-make-generated-source-files-reproducible.patch")
-            old.patches;
-        });
-        default = neovim;
-      });
-      defaultPackage = forAllSystems (system: self.packages.${system}.default);
+      packages = forAllSystems (system: { inherit (neovim-flake.packages.${system}) default neovim; });
+      defaultPackage = forAllSystems (system: neovim-flake.packages.${system}.default);
       overlay = final: prev: {
         neovim-unwrapped = self.packages.${prev.system}.neovim;
         neovim-nightly = self.packages.${prev.system}.neovim;
