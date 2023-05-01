@@ -2,23 +2,49 @@
   description = "Neovim flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-parts = { url = "github:hercules-ci/flake-parts"; inputs.nixpkgs-lib.follows = "nixpkgs"; };
+    hercules-ci-effects = { url = "github:hercules-ci/hercules-ci-effects"; inputs.nixpkgs.follows = "nixpkgs"; };
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
-    neovim-flake.url = "github:neovim/neovim?dir=contrib";
-    neovim-flake.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-flake = { url = "github:neovim/neovim?dir=contrib"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
-  outputs = { self, nixpkgs, neovim-flake, ... }:
-    let forAllSystems = (nixpkgs.lib.genAttrs [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ]); in
-    {
-      packages = forAllSystems (system: { inherit (neovim-flake.packages.${system}) default neovim; });
-      defaultPackage = forAllSystems (system: neovim-flake.packages.${system}.default);
-      overlay = final: prev: {
-        neovim-unwrapped = neovim-flake.packages.${prev.system}.neovim;
-        neovim-nightly = neovim-flake.packages.${prev.system}.neovim;
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } ({ config, ... }: {
+      systems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+
+      imports = [
+        inputs.flake-parts.flakeModules.easyOverlay
+        inputs.hercules-ci-effects.flakeModule
+      ];
+
+      perSystem = { inputs', config, lib, ... }: {
+        packages = { inherit (inputs'.neovim-flake.packages) default neovim; };
+        overlayAttrs = lib.genAttrs [ "neovim-unwrapped" "neovim-nightly" ] (_: config.packages.neovim);
       };
-      herculesCI = {
-        ciSystems = [ "x86_64-linux" "aarch64-linux" ]; # These are the only systems avaiable currently for our Hercules-CI infra.
+
+      flake = {
+        defaultPackage = inputs.nixpkgs.lib.genAttrs config.systems (system: inputs.self.packages.${system}.default);
+        overlay = inputs.self.overlays.default;
       };
-    };
+
+      hercules-ci.flake-update = {
+        enable = true;
+        createPullRequest = true;
+        autoMergeMethod = "merge";
+        updateBranch = "flake-update";
+        # Update everynight at midnight
+        when = {
+          hour = [ 0 ];
+          minute = 0;
+        };
+      };
+
+      herculesCI.ciSystems = [ "x86_64-linux" "aarch64-linux" ]; # These are the only systems avaiable currently for our Hercules-CI infra.
+    });
 }

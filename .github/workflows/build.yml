@@ -1,7 +1,7 @@
-name: "Build"
+name: "Build on Darwin"
 
 on:
-  # Build on push to master
+  # Build on push
   push:
     branches:
       - master
@@ -11,12 +11,6 @@ on:
 
   # Allow to trigger for external PRs
   workflow_dispatch:
-
-  # Also run regularly because pushes initiated by GitHub Actions don't
-  # trigger the above events.
-  schedule:
-    # every day at 8am UTC
-    - cron: '10 8 * * *'
 
 jobs:
   build:
@@ -28,4 +22,6 @@ jobs:
       with:
         name: nix-community
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - run: nix build 
+        extraPullNames: nix-community
+    - run: nix build .#default -L
+    - run: nix build .#neovim -L
