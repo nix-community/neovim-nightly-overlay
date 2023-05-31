@@ -25,9 +25,7 @@
 
       perSystem = { inputs', config, lib, ... }: {
         packages = {
-          neovim = inputs'.neovim-flake.packages.neovim.overrideAttrs (o: {
-            patches = builtins.filter (p: (if builtins.typeOf p == "set" then baseNameOf p.name else baseNameOf) != "use-the-correct-replacement-args-for-gsub-directive.patch") o.patches;
-          });
+          inherit (inputs'.neovim-flake.packages) neovim;
           default = config.packages.neovim;
         };
         overlayAttrs = lib.genAttrs [ "neovim-unwrapped" "neovim-nightly" ] (_: config.packages.neovim);
