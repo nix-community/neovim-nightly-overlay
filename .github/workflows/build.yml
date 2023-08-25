@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3.5.3
+    - uses: actions/checkout@v3.6.0
     - uses: cachix/install-nix-action@v22
     - uses: cachix/cachix-action@v12
       with:
