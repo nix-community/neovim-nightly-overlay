@@ -38,16 +38,13 @@
 
       hercules-ci.flake-update = {
         enable = true;
-        createPullRequest = true;
-        autoMergeMethod = "merge";
-        updateBranch = "flake-update";
+        createPullRequest = false;
+        updateBranch = "master";
         # Update everynight at midnight
         when = {
           hour = [ 0 ];
           minute = 0;
         };
       };
-
-      herculesCI.ciSystems = [ "x86_64-linux" "aarch64-linux" ]; # These are the only systems avaiable currently for our Hercules-CI infra.
     });
 }
