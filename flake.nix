@@ -23,9 +23,9 @@
         inputs.hercules-ci-effects.flakeModule
       ];
 
-      perSystem = { inputs', config, lib, ... }: {
+      perSystem = { inputs', config, lib, pkgs, ... }: {
         packages = {
-          inherit (inputs'.neovim-flake.packages) neovim;
+          neovim = inputs'.neovim-flake.packages.neovim // (lib.optionalAttrs pkgs.stdenv.isDarwin { ignoreFailure = true; });
           default = config.packages.neovim;
         };
         overlayAttrs = lib.genAttrs [ "neovim-unwrapped" "neovim-nightly" ] (_: config.packages.neovim);
@@ -38,8 +38,9 @@
 
       hercules-ci.flake-update = {
         enable = true;
-        createPullRequest = false;
-        updateBranch = "master";
+        baseMerge.enable = true;
+        baseMerge.method = "rebase";
+        autoMergeMethod = "rebase";
         # Update everynight at midnight
         when = {
           hour = [ 0 ];
