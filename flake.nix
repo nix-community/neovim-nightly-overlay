@@ -23,9 +23,12 @@
         inputs.hercules-ci-effects.flakeModule
       ];
 
-      perSystem = { inputs', config, lib, pkgs, ... }: {
+      perSystem = { inputs', system, config, lib, pkgs, ... }: {
         packages = {
-          neovim = inputs'.neovim-flake.packages.neovim // (lib.optionalAttrs pkgs.stdenv.isDarwin { ignoreFailure = true; });
+          neovim = (inputs'.neovim-flake.packages.neovim // (lib.optionalAttrs pkgs.stdenv.isDarwin { ignoreFailure = true; })).override {
+            # TODO remove on the next staging -> master update
+            inherit ((builtins.getFlake "github:NixOS/nixpkgs/d4758c3f27804693ebb6ddce2e9f6624b3371b08").legacyPackages.${system}) libvterm-neovim;
+          };
           default = config.packages.neovim;
         };
         overlayAttrs = lib.genAttrs [ "neovim-unwrapped" "neovim-nightly" ] (_: config.packages.neovim);
