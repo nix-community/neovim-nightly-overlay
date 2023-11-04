@@ -41,6 +41,7 @@
 
       hercules-ci.flake-update = {
         enable = true;
+        autoMergeMethod = "rebase";
         # Update everynight at midnight
         when = {
           hour = [ 0 ];
