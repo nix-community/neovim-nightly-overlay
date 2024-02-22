@@ -42,6 +42,11 @@ nix-env -iA pkgs.neovim-nightly
 ```
 or add to home-manager/configuration.nix.
 
+Install with nix profile:
+```
+nix profile --substituters https://nix-community.cachix.org --trusted-public-keys nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= install github:nix-community/neovim-nightly-overlay#neovim
+```
+
 # Binary cache
 
 You will want to use the [nix-community binary cache](https://nix-community.org/#binary-cache). Where the
