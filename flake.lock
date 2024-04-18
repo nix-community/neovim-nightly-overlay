@@ -61,11 +61,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1701680307,
-        "narHash": "sha256-kAuep2h5ajznlPMD9rnQyffWG8EM/C73lejGofXvdM8=",
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "4022d587cbbfd70fe950c1e2083a02621806a725",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
         "type": "github"
       },
       "original": {
@@ -98,21 +98,33 @@
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils",
+        "neovim-src": "neovim-src",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "dir": "contrib",
-        "lastModified": 1713392591,
-        "narHash": "sha256-k7d4HX+HZgRGy6bGtZ5VjuhCrrBd3PoYvdwbeT34Mrs=",
+        "lastModified": 1,
+        "narHash": "sha256-7X/tWr/FVnUaGFodeU51ViNGhNjW6ZX+yl3vFJqFQK0=",
+        "path": "./neovim",
+        "type": "path"
+      },
+      "original": {
+        "path": "./neovim",
+        "type": "path"
+      }
+    },
+    "neovim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713452278,
+        "narHash": "sha256-IfCpwH/cs7MHhsCisnRXjHLDNsf6ZEGKwJup4ZVi740=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "562719033ec8bec9f6d56c166b9aef13f8a50a96",
+        "rev": "f1dfe32bf5552197e0068298b0527526a4f918b1",
         "type": "github"
       },
       "original": {
-        "dir": "contrib",
         "owner": "neovim",
         "repo": "neovim",
         "type": "github"
