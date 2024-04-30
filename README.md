@@ -16,7 +16,10 @@ If you are using flakes to configure your system, add to your nixpkgs overlays a
 
 ```nix
 {
-  inputs.neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+  inputs = {
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+  };
+
   outputs = { self, ... }@inputs:
     let
       overlays = [
@@ -25,10 +28,11 @@ If you are using flakes to configure your system, add to your nixpkgs overlays a
     in
       homeConfigurations = {
         macbook-pro = inputs.home-manager.lib.homeManagerConfiguration {
-          configuration = { pkgs, ... }:
+          modules = [
             {
               nixpkgs.overlays = overlays;
             };
+          ];
         };
       };
 }
