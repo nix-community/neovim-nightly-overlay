@@ -1,5 +1,11 @@
-# nix
+# direnv
+/.direnv
+/.envrc
 
+# neovim-developer
+/runtime/
+
+# nix
 result
 result-*
 .pre-commit-config.yaml
