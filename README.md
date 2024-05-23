@@ -1,4 +1,4 @@
-# To use the overlay 
+# To use the overlay
 
 Add the overlay to your home.nix (home-manager) or configuration.nix (nixos):
 
@@ -36,9 +36,9 @@ If you are using flakes to configure your system, add to your nixpkgs overlays a
 
 Note, I recently switched the overlay to use flakes by default with flakes-compat for older nix. Please report issues if this breaks things.
 
-Install neovim-nightly:
+Install neovim:
 ```
-nix-env -iA pkgs.neovim-nightly
+nix-env -iA pkgs.neovim
 ```
 or add to home-manager/configuration.nix.
 
