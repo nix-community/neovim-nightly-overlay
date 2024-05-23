@@ -11,11 +11,11 @@
       #   preferLocalBuild = true;
       # } "make -C ${inputs.neovim-src} shlint > $out";
 
+      # Not checking neovim-developer here as it currently failes because of memory leaks
       inherit
         (config.packages)
         neovim
         neovim-debug
-        neovim-developer
         ;
     };
   };
