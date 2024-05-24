@@ -22,4 +22,7 @@ neovim-debug.overrideAttrs (oa: {
   shellHook = ''
     export VIMRUNTIME=${neovim-src}/runtime
   '';
+
+  # This package can be "failing" as soon as a memory leak is detected
+  ignoreFailure = true;
 })
