@@ -2,7 +2,7 @@
   description = "Neovim flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/3305b2b25e4ae4baee872346eae133cf6f611783";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
