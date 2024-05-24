@@ -1,2 +1,2 @@
 final: prev:
-(import ./flake-compat.nix).overlay final prev
+(import ./flake-compat.nix).overlays final prev
