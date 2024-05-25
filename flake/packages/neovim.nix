@@ -33,47 +33,61 @@
         }))
     (builtins.mapAttrs (lib.const pkgs.fetchurl))
   ];
-in
-  (pkgs.neovim-unwrapped.override {
-    gettext = pkgs.gettext.overrideAttrs (_: {
+
+  # The following overrides will only take effect for linux hosts
+  linuxOnlyOverrides = lib.optionalAttrs (!pkgs.stdenv.isDarwin) {
+    gettext = pkgs.gettext.overrideAttrs {
       src = deps.gettext;
-    });
-    libiconv = pkgs.libiconv.overrideAttrs (_: {
+    };
+
+    # pkgs.libiconv.src is pointing at the darwin fork of libiconv.
+    # Hence, overriding its source does not make sense on darwin.
+    libiconv = pkgs.libiconv.overrideAttrs {
       src = deps.libiconv;
-    });
-    libuv = pkgs.libuv.overrideAttrs (_: {
-      src = deps.libuv;
-    });
-    libvterm-neovim = pkgs.libvterm-neovim.overrideAttrs (_: {
-      src = deps.libvterm;
-    });
-    msgpack-c = pkgs.msgpack-c.overrideAttrs (_: {
-      src = deps.msgpack;
-    });
-    tree-sitter = pkgs.tree-sitter.override (_: {
-      rustPlatform =
-        pkgs.rustPlatform
-        // {
-          buildRustPackage = args:
-            pkgs.rustPlatform.buildRustPackage (args
-              // {
-                src = deps.treesitter;
-                cargoHash = "sha256-U2YXpNwtaSSEftswI0p0+npDJqOq5GqxEUlOPRlJGmQ=";
-              });
-        };
-    });
-    treesitter-parsers = let
-      grammars = lib.filterAttrs (name: _: lib.hasPrefix "treesitter_" name) deps;
-    in
-      lib.mapAttrs'
-      (
-        name: value:
-          lib.nameValuePair
-          (lib.removePrefix "treesitter_" name)
-          {src = value;}
-      )
-      grammars;
-  })
+    };
+  };
+
+  overrides =
+    {
+      libuv = pkgs.libuv.overrideAttrs {
+        src = deps.libuv;
+      };
+      libvterm-neovim = pkgs.libvterm-neovim.overrideAttrs {
+        src = deps.libvterm;
+      };
+      msgpack-c = pkgs.msgpack-c.overrideAttrs {
+        src = deps.msgpack;
+      };
+      tree-sitter = pkgs.tree-sitter.override {
+        rustPlatform =
+          pkgs.rustPlatform
+          // {
+            buildRustPackage = args:
+              pkgs.rustPlatform.buildRustPackage (args
+                // {
+                  src = deps.treesitter;
+                  cargoHash = "sha256-U2YXpNwtaSSEftswI0p0+npDJqOq5GqxEUlOPRlJGmQ=";
+                });
+          };
+      };
+      treesitter-parsers = let
+        grammars = lib.filterAttrs (name: _: lib.hasPrefix "treesitter_" name) deps;
+      in
+        lib.mapAttrs'
+        (
+          name: value:
+            lib.nameValuePair
+            (lib.removePrefix "treesitter_" name)
+            {src = value;}
+        )
+        grammars;
+    }
+    // linuxOnlyOverrides;
+in
+  (
+    pkgs.neovim-unwrapped.override
+    overrides
+  )
   .overrideAttrs (oa: {
     version = "nightly";
     inherit src;
