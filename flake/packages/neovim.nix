@@ -64,22 +64,15 @@ in
     });
     treesitter-parsers = let
       grammars = lib.filterAttrs (name: _: lib.hasPrefix "treesitter_" name) deps;
-      parsers =
-        lib.mapAttrs'
-        (name: value: lib.nameValuePair (lib.removePrefix "treesitter_" name) {src = value;})
-        grammars;
     in
-      parsers
-      // {
-        markdown = parsers.markdown // {location = "tree-sitter-markdown";};
-        # TODO useless at some point (has been fixed in nixpkgs master)
-        markdown_inline =
-          parsers.markdown
-          // {
-            language = "markdown_inline";
-            location = "tree-sitter-markdown-inline";
-          };
-      };
+      lib.mapAttrs'
+      (
+        name: value:
+          lib.nameValuePair
+          (lib.removePrefix "treesitter_" name)
+          {src = value;}
+      )
+      grammars;
   })
   .overrideAttrs (oa: {
     version = "nightly";
