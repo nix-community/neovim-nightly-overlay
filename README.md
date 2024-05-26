@@ -1,5 +1,10 @@
 # To use the overlay
 
+---
+**Matrix room:** [#neovim-nightly-overlay:nixos.org](https://matrix.to/#/#neovim-nightly-overlay:nixos.org)
+
+---
+
 Add the overlay to your home.nix (home-manager) or configuration.nix (nixos):
 
 ```nix
