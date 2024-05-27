@@ -23,8 +23,8 @@ If you are using flakes to configure your system, add to your nixpkgs overlays a
   outputs = { self, ... }@inputs:
     let
       overlays = [
-          inputs.neovim-nightly-overlay.overlay
-        ];
+        inputs.neovim-nightly-overlay.overlay
+      ];
     in
       homeConfigurations = {
         macbook-pro = inputs.home-manager.lib.homeManagerConfiguration {
