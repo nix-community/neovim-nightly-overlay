@@ -1,29 +1,39 @@
 # To use the overlay
 
-Add the overlay to your home.nix (home-manager) or configuration.nix (nixos):
+## with Flakes
+
+If you are using [flakes] to configure your system, you can either reference the
+package provided by this flake directly, e.g. for nixos:
 
 ```nix
+{ inputs, pkgs, ... }:
 {
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-    }))
+  progams.neovim = {
+    enable = true;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+  };
+
+  # or
+
+  environment.systemPackages = [
+    inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
   ];
 }
 ```
 
-If you are using flakes to configure your system, add to your nixpkgs overlays attribute (examples will differ, the following is for home-manager):
+or you can apply the overlay to your package set, e.g for home-manager:
 
 ```nix
 {
   inputs = {
+    ...
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = { self, ... }@inputs:
     let
       overlays = [
-        inputs.neovim-nightly-overlay.overlay
+        inputs.neovim-nightly-overlay.overlays.default
       ];
     in
       homeConfigurations = {
@@ -38,21 +48,22 @@ If you are using flakes to configure your system, add to your nixpkgs overlays a
 }
 ```
 
-Note, I recently switched the overlay to use flakes by default with flakes-compat for older nix. Please report issues if this breaks things.
+## without Flakes
 
-Install neovim:
-```
-nix-env -iA pkgs.neovim
-```
-or add to home-manager/configuration.nix.
+Add the overlay to your home.nix (home-manager) or configuration.nix (nixos):
 
-Install with nix profile:
-```
-nix profile --substituters https://nix-community.cachix.org --trusted-public-keys nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= install github:nix-community/neovim-nightly-overlay#neovim
+```nix
+{
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
+    }))
+  ];
+}
 ```
 
 # Binary cache
 
-You will want to use the [nix-community binary cache](https://nix-community.org/#binary-cache). Where the
-overlay's build artefacts are pushed. See [here](https://app.cachix.org/cache/nix-community) for installation
-instructions.
+See: https://app.cachix.org/cache/nix-community
+
+[flakes]: https://nixos.wiki/wiki/Flakes
