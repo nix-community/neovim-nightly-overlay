@@ -5,7 +5,7 @@
     ./devshells.nix
     ./overlays.nix
     ./packages
-    inputs.pre-commit-hooks.flakeModule
+    inputs.git-hooks.flakeModule
   ];
 
   perSystem = {pkgs, ...}: {
