@@ -2,7 +2,6 @@
   perSystem = {
     pkgs,
     config,
-    lua,
     ...
   }: {
     devShells = {
@@ -38,7 +37,7 @@
           include-what-you-use
           jq
           lua-language-server
-          lua.pkgs.luacheck
+          luajit.pkgs.luacheck
           shellcheck
         ];
         shellHook = ''

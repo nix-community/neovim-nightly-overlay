@@ -55,6 +55,7 @@
       libvterm-neovim = pkgs.libvterm-neovim.overrideAttrs {
         src = deps.libvterm;
       };
+      lua = pkgs.luajit;
       msgpack-c = pkgs.msgpack-c.overrideAttrs {
         src = deps.msgpack;
       };
