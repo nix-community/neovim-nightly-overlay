@@ -5,7 +5,6 @@
     config,
     lib,
     pkgs,
-    lua,
     ...
   }: {
     packages = {
@@ -24,7 +23,7 @@
       neovim-developer = import ./neovim-developer.nix {
         inherit (config.packages) neovim-debug;
         inherit (inputs) neovim-src;
-        inherit lib pkgs lua;
+        inherit lib pkgs;
       };
     };
   };

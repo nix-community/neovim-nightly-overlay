@@ -1,7 +1,6 @@
 {
   neovim-debug,
   pkgs,
-  lua,
   lib,
   neovim-src,
   ...
@@ -10,7 +9,7 @@ neovim-debug.overrideAttrs (oa: {
   cmakeFlagsArray =
     oa.cmakeFlagsArray
     ++ [
-      "-DLUACHECK_PRG=${lua.pkgs.luacheck}/bin/luacheck"
+      "-DLUACHECK_PRG=${pkgs.luajit.pkgs.luacheck}/bin/luacheck"
       "-DENABLE_LTO=OFF"
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
