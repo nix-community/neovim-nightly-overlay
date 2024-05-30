@@ -49,9 +49,11 @@
 
   overrides =
     {
-      libuv = pkgs.libuv.overrideAttrs {
-        src = deps.libuv;
-      };
+      # FIXME: this has been causing problems, see;
+      # https://github.com/nix-community/neovim-nightly-overlay/issues/538
+      # libuv = pkgs.libuv.overrideAttrs {
+      #   src = deps.libuv;
+      # };
       libvterm-neovim = pkgs.libvterm-neovim.overrideAttrs {
         src = deps.libvterm;
       };
