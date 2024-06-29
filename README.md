@@ -8,7 +8,7 @@ package provided by this flake directly, e.g. for nixos:
 ```nix
 { inputs, pkgs, ... }:
 {
-  progams.neovim = {
+  programs.neovim = {
     enable = true;
     package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
   };
