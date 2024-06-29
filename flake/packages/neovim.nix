@@ -102,6 +102,7 @@ in
 
     buildInputs = with pkgs;
       [
+        # TODO: remove once upstream nixpkgs updates the base drv
         (utf8proc.overrideAttrs (_: {
           src = deps.utf8proc;
         }))
