@@ -14,7 +14,7 @@
   deps = lib.pipe "${src}/cmake.deps/deps.txt" [
     builtins.readFile
     (lib.splitString "\n")
-    (map (builtins.match "([A-Z0-0_]+)_(URL|SHA256)[[:space:]]+([^[:space:]]+)[[:space:]]*"))
+    (map (builtins.match "([A-Z0-9_]+)_(URL|SHA256)[[:space:]]+([^[:space:]]+)[[:space:]]*"))
     (lib.remove null)
     (lib.flip builtins.foldl' {}
       (acc: matches: let
@@ -94,8 +94,18 @@ in
   .overrideAttrs (oa: {
     version = "nightly";
     inherit src;
+
     preConfigure = ''
       ${oa.preConfigure}
-      sed -i cmake.config/versiondef.h.in -e 's/@NVIM_VERSION_PRERELEASE@/-dev+${neovim-src.shortRev or "dirty"}/'
+      sed -i cmake.config/versiondef.h.in -e 's/@NVIM_VERSION_PRERELEASE@/-nightly+${neovim-src.shortRev or "dirty"}/'
     '';
+
+    buildInputs = with pkgs;
+      [
+        # TODO: remove once upstream nixpkgs updates the base drv
+        (utf8proc.overrideAttrs (_: {
+          src = deps.utf8proc;
+        }))
+      ]
+      ++ oa.buildInputs;
   })
