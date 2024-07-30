@@ -68,8 +68,9 @@
             buildRustPackage = args:
               pkgs.rustPlatform.buildRustPackage (args
                 // {
+                  version = "bundled";
                   src = deps.treesitter;
-                  cargoHash = "sha256-U2YXpNwtaSSEftswI0p0+npDJqOq5GqxEUlOPRlJGmQ=";
+                  cargoHash = "sha256-d3OCoR+uxfXvZbI+a2enz5MyCLMoD595DhFjf9l63lA=";
                 });
           };
       };
