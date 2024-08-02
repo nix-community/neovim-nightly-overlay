@@ -66,4 +66,4 @@ Add the overlay to your home.nix (home-manager) or configuration.nix (nixos):
 
 See: https://app.cachix.org/cache/nix-community
 
-[flakes]: https://nixos.wiki/wiki/Flakes
+[flakes]: https://wiki.nixos.org/wiki/Flakes
