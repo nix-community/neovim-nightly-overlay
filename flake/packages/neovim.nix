@@ -58,9 +58,6 @@
         src = deps.libvterm;
       };
       lua = pkgs.luajit;
-      msgpack-c = pkgs.msgpack-c.overrideAttrs {
-        src = deps.msgpack;
-      };
       tree-sitter = pkgs.tree-sitter.override {
         rustPlatform =
           pkgs.rustPlatform
