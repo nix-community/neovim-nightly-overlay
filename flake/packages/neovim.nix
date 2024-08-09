@@ -4,12 +4,7 @@
   pkgs,
   ...
 }: let
-  src = pkgs.fetchFromGitHub {
-    owner = "neovim";
-    repo = "neovim";
-    inherit (neovim-src) rev;
-    hash = neovim-src.narHash;
-  };
+  src = neovim-src;
 
   deps = lib.pipe "${src}/cmake.deps/deps.txt" [
     builtins.readFile
