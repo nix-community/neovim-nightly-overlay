@@ -49,9 +49,6 @@
       # libuv = pkgs.libuv.overrideAttrs {
       #   src = deps.libuv;
       # };
-      libvterm-neovim = pkgs.libvterm-neovim.overrideAttrs {
-        src = deps.libvterm;
-      };
       lua = pkgs.luajit;
       tree-sitter = pkgs.tree-sitter.override {
         rustPlatform =
