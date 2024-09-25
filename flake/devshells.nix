@@ -24,6 +24,10 @@
           mkdir -p runtime/parser
           cp -f ${pkgs.vimPlugins.nvim-treesitter.builtGrammars.c}/parser runtime/parser/c.so
         '';
+
+        # Do not fail the hercules-ci because of this shell failing.
+        # This often happens due to neovim-developer being broken.
+        ignoreFailure = true;
       };
 
       # Provide a devshell that can be used strictly for developing this flake.
