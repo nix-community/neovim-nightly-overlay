@@ -6,8 +6,8 @@
   ...
 }:
 neovim-debug.overrideAttrs (oa: {
-  cmakeFlagsArray =
-    oa.cmakeFlagsArray
+  cmakeFlags =
+    oa.cmakeFlags
     ++ [
       "-DLUACHECK_PRG=${pkgs.luajit.pkgs.luacheck}/bin/luacheck"
       "-DENABLE_LTO=OFF"
