@@ -4,7 +4,7 @@
   ...
 }:
 lib.optionalAttrs (inputs.hercules-ci-effects ? flakeModule) {
-  imports = lib.optionals (inputs.hercules-ci-effects ? flakeModule) [
+  imports = [
     inputs.hercules-ci-effects.flakeModule
   ];
 
