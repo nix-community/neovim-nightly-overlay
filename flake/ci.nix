@@ -1,5 +1,10 @@
-{inputs, ...}: {
-  imports = [
+{
+  inputs,
+  lib,
+  ...
+}:
+lib.optionalAttrs (inputs.hercules-ci-effects ? flakeModule) {
+  imports = lib.optionals (inputs.hercules-ci-effects ? flakeModule) [
     inputs.hercules-ci-effects.flakeModule
   ];
 
