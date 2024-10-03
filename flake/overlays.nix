@@ -3,14 +3,7 @@
     inputs.flake-parts.flakeModules.easyOverlay
   ];
 
-  perSystem = {
-    inputs',
-    system,
-    config,
-    lib,
-    pkgs,
-    ...
-  }: {
+  perSystem = {config, ...}: {
     overlayAttrs = {
       inherit
         (config.packages)
