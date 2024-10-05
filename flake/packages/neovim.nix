@@ -50,19 +50,28 @@
       #   src = deps.libuv;
       # };
       lua = pkgs.luajit;
-      tree-sitter = pkgs.tree-sitter.override {
-        rustPlatform =
-          pkgs.rustPlatform
-          // {
-            buildRustPackage = args:
-              pkgs.rustPlatform.buildRustPackage (args
-                // {
-                  version = "bundled";
-                  src = deps.treesitter;
-                  cargoHash = "sha256-TGi87bkjPHvsk3elfZOT91H8QB8p0UPeJdKlL3kbNuU=";
-                });
-          };
-      };
+      tree-sitter =
+        (pkgs.tree-sitter.override {
+          rustPlatform =
+            pkgs.rustPlatform
+            // {
+              buildRustPackage = args:
+                pkgs.rustPlatform.buildRustPackage (args
+                  // {
+                    version = "bundled";
+                    src = deps.treesitter;
+                    cargoHash = "sha256-TGi87bkjPHvsk3elfZOT91H8QB8p0UPeJdKlL3kbNuU=";
+                  });
+            };
+        })
+        .overrideAttrs (oa: {
+          postPatch = ''
+            ${oa.postPatch}
+            sed -e 's/playground::serve(.*$/println!("ERROR: web-ui is not available in this nixpkgs build; enable the webUISupport"); std::process::exit(1);/' \
+                -i cli/src/main.rs
+          '';
+        });
+
       treesitter-parsers = let
         grammars = lib.filterAttrs (name: _: lib.hasPrefix "treesitter_" name) deps;
       in
