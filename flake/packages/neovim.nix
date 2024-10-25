@@ -2,8 +2,6 @@
   neovim-src,
   lib,
   pkgs,
-  stdenv,
-  fixDarwinDylibNames,
   ...
 }: let
   src = neovim-src;
@@ -103,7 +101,7 @@ in
 
     buildInputs = let
       nvim-lpeg-dylib = luapkgs:
-        if stdenv.hostPlatform.isDarwin
+        if pkgs.stdenv.hostPlatform.isDarwin
         then
           (luapkgs.lpeg.overrideAttrs (oa: {
             preConfigure = ''
@@ -127,7 +125,7 @@ in
             nativeBuildInputs =
               oa.nativeBuildInputs
               ++ (
-                lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+                lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.fixDarwinDylibNames
               );
           }))
         else luapkgs.lpeg;
@@ -138,7 +136,6 @@ in
           mpack
         ]
       );
-      myNeovimLuaEnv = pkgs.luajit.withPackages requiredLuaPkgs;
     in
       with pkgs;
         [
@@ -149,7 +146,6 @@ in
         ]
         ++ builtins.filter (input: builtins.match "luajit-.*-env" input.name == null) oa.buildInputs
         ++ [
-          myNeovimLuaEnv
+          (pkgs.luajit.withPackages requiredLuaPkgs)
         ];
   })
-
