@@ -2,6 +2,8 @@
   neovim-src,
   lib,
   pkgs,
+  stdenv,
+  fixDarwinDylibNames,
   ...
 }: let
   src = neovim-src;
@@ -99,12 +101,55 @@ in
       sed -i cmake.config/versiondef.h.in -e 's/@NVIM_VERSION_PRERELEASE@/-nightly+${neovim-src.shortRev or "dirty"}/'
     '';
 
-    buildInputs = with pkgs;
-      [
-        # TODO: remove once upstream nixpkgs updates the base drv
-        (utf8proc.overrideAttrs (_: {
-          src = deps.utf8proc;
-        }))
-      ]
-      ++ oa.buildInputs;
+    buildInputs = let
+      nvim-lpeg-dylib = luapkgs:
+        if stdenv.hostPlatform.isDarwin
+        then
+          (luapkgs.lpeg.overrideAttrs (oa: {
+            preConfigure = ''
+              # neovim wants clang .dylib
+              sed -i makefile -e "s/CC = gcc/CC = clang/"
+              sed -i makefile -e "s/-bundle/-dynamiclib/"
+              sed -i makefile -e "s/lpeg.so/lpeg.dylib/"
+              sed -i makefile -e '/^linux:$/ {N; d;}'
+              cat makefile
+            '';
+            preBuild = ''
+              # there seems to be implicit calls to Makefile from luarocks, we need to
+              # add a stage to build our dylib
+              make macosx
+              mkdir -p $out/lib/lua/5.1
+              mv lpeg.dylib $out/lib/lua/5.1/lpeg.dylib
+            '';
+            postInstall = ''
+              rm -f $out/lib/lua/5.1/lpeg.so
+            '';
+            nativeBuildInputs =
+              oa.nativeBuildInputs
+              ++ (
+                lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+              );
+          }))
+        else luapkgs.lpeg;
+      requiredLuaPkgs = ps: (
+        with ps; [
+          (nvim-lpeg-dylib ps)
+          luabitop
+          mpack
+        ]
+      );
+      myNeovimLuaEnv = pkgs.luajit.withPackages requiredLuaPkgs;
+    in
+      with pkgs;
+        [
+          # TODO: remove once upstream nixpkgs updates the base drv
+          (utf8proc.overrideAttrs (_: {
+            src = deps.utf8proc;
+          }))
+        ]
+        ++ builtins.filter (input: builtins.match "luajit-.*-env" input.name == null) oa.buildInputs
+        ++ [
+          myNeovimLuaEnv
+        ];
   })
+
