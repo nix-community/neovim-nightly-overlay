@@ -110,7 +110,6 @@ in
               sed -i makefile -e "s/-bundle/-dynamiclib/"
               sed -i makefile -e "s/lpeg.so/lpeg.dylib/"
               sed -i makefile -e '/^linux:$/ {N; d;}'
-              cat makefile
             '';
             preBuild = ''
               # there seems to be implicit calls to Makefile from luarocks, we need to
