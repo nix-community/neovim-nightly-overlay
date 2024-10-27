@@ -61,7 +61,7 @@ Add the overlay to your home.nix (home-manager) or configuration.nix (nixos):
   ];
 }
 ```
-Due to some nixpkgs breaking changes is you are using NixOS 24.05 use the overlay below
+Due to some nixpkgs breaking changes if you are using NixOS 24.05 use the overlay below
 ```nix
 {
   nixpkgs.config = {
