@@ -61,6 +61,26 @@ Add the overlay to your home.nix (home-manager) or configuration.nix (nixos):
   ];
 }
 ```
+Due to some nixpkgs breaking changes if you are using NixOS 24.05 use the overlay below <br/>
+*also requires that you have the nixpkgs-unstable `nix-channel`*
+```nix
+{
+  nixpkgs.config = {
+    packageOverrides = pkgs: let
+      pkgs' = import <nixpkgs-unstable> {
+        inherit (pkgs) system;
+        overlays = [
+          (import (builtins.fetchTarball {
+            url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
+          }))
+        ];
+      };
+    in {
+      inherit (pkgs') neovim;
+    };
+  };
+}
+```
 
 # Binary cache
 
