@@ -90,7 +90,8 @@ in
 
     preConfigure = ''
       ${oa.preConfigure}
-      sed -i cmake.config/versiondef.h.in -e 's/@NVIM_VERSION_PRERELEASE@/-nightly+${neovim-src.shortRev or "dirty"}/'
+      substituteAll cmake.config/versiondef.h.in \
+        --replace-fail '@NVIM_VERSION_PRERELEASE@' '-nightly+${neovim-src.shortRev or "dirty"}'
     '';
 
     buildInputs = with pkgs;
