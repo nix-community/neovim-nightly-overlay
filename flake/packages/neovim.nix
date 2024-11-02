@@ -34,12 +34,6 @@
     gettext = pkgs.gettext.overrideAttrs {
       src = deps.gettext;
     };
-
-    # pkgs.libiconv.src is pointing at the darwin fork of libiconv.
-    # Hence, overriding its source does not make sense on darwin.
-    libiconv = pkgs.libiconv.overrideAttrs {
-      src = deps.libiconv;
-    };
   };
 
   overrides =
