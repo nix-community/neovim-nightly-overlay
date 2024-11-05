@@ -34,12 +34,6 @@
     gettext = pkgs.gettext.overrideAttrs {
       src = deps.gettext;
     };
-
-    # pkgs.libiconv.src is pointing at the darwin fork of libiconv.
-    # Hence, overriding its source does not make sense on darwin.
-    libiconv = pkgs.libiconv.overrideAttrs {
-      src = deps.libiconv;
-    };
   };
 
   overrides =
@@ -96,7 +90,8 @@ in
 
     preConfigure = ''
       ${oa.preConfigure}
-      sed -i cmake.config/versiondef.h.in -e 's/@NVIM_VERSION_PRERELEASE@/-nightly+${neovim-src.shortRev or "dirty"}/'
+      substituteAll cmake.config/versiondef.h.in \
+        --replace-fail '@NVIM_VERSION_PRERELEASE@' '-nightly+${neovim-src.shortRev or "dirty"}'
     '';
 
     buildInputs = with pkgs;
