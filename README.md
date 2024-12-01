@@ -48,6 +48,12 @@ or you can apply the overlay to your package set, e.g for home-manager:
 }
 ```
 
+### Updating
+
+The `neovim-nightly-overlay` flake itself is updated every day to use the latest `neovim` source code.
+
+However, your own flake needs to be synced **manually**. Remember to regularly update your flake (e.g. by using `nix flake update`) to get a most recent neovim build.
+
 ## without Flakes
 
 Add the overlay to your home.nix (home-manager) or configuration.nix (nixos):
