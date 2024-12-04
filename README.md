@@ -26,7 +26,6 @@ or you can apply the overlay to your package set, e.g for home-manager:
 ```nix
 {
   inputs = {
-    ...
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
@@ -36,15 +35,17 @@ or you can apply the overlay to your package set, e.g for home-manager:
         inputs.neovim-nightly-overlay.overlays.default
       ];
     in
+    {
       homeConfigurations = {
         macbook-pro = inputs.home-manager.lib.homeManagerConfiguration {
           modules = [
             {
               nixpkgs.overlays = overlays;
-            };
+            }
           ];
         };
       };
+    };
 }
 ```
 
