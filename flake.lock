@@ -178,7 +178,28 @@
         "git-hooks": "git-hooks",
         "hercules-ci-effects": "hercules-ci-effects",
         "neovim-src": "neovim-src",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "treefmt-nix": "treefmt-nix"
+      }
+    },
+    "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1733761991,
+        "narHash": "sha256-s4DalCDepD22jtKL5Nw6f4LP5UwoMcPzPZgHWjAfqbQ=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "0ce9d149d99bc383d1f2d85f31f6ebd146e46085",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "type": "github"
       }
     }
   },

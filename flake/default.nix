@@ -11,13 +11,24 @@
       ./overlays.nix
       ./packages
     ]
-    ++ lib.optionals (inputs.git-hooks ? flakeModule) [inputs.git-hooks.flakeModule];
+    ++ lib.optionals (inputs.git-hooks ? flakeModule) [inputs.git-hooks.flakeModule]
+    ++ lib.optionals (inputs.treefmt-nix ? flakeModule) [inputs.treefmt-nix.flakeModule];
 
   perSystem = {pkgs, ...}:
-    {
-      formatter = pkgs.alejandra;
+    lib.optionalAttrs (inputs.treefmt-nix ? flakeModule) {
+      treefmt.config = {
+        projectRootFile = "flake.nix";
+        flakeCheck = true;
+
+        programs = {
+          nixfmt = {
+            enable = true;
+            package = pkgs.nixfmt-rfc-style;
+          };
+        };
+      };
     }
     // lib.optionalAttrs (inputs.git-hooks ? flakeModule) {
-      pre-commit.settings.hooks.alejandra.enable = true;
+      pre-commit.settings.hooks.treefmt.enable = true;
     };
 }

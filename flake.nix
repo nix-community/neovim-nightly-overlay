@@ -24,6 +24,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
