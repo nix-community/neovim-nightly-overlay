@@ -4,17 +4,12 @@
   ...
 }:
 (neovim.override {
-  stdenv =
-    if pkgs.stdenv.isLinux
-    then pkgs.llvmPackages_latest.stdenv
-    else pkgs.stdenv;
+  stdenv = if pkgs.stdenv.isLinux then pkgs.llvmPackages_latest.stdenv else pkgs.stdenv;
   lua = pkgs.luajit;
-})
-.overrideAttrs (
-  oa: {
+}).overrideAttrs
+  (oa: {
     dontStrip = true;
     NIX_CFLAGES_COMPILE = " -ggdb -Og";
     cmakeBuildType = "Debug";
-    disallowedReferences = [];
-  }
-)
+    disallowedReferences = [ ];
+  })

@@ -15,7 +15,7 @@ lib.optionalAttrs (inputs.hercules-ci-effects ? flakeModule) {
     autoMergeMethod = "rebase";
     # Update everynight at midnight
     when = {
-      hour = [0];
+      hour = [ 0 ];
       minute = 0;
     };
   };
