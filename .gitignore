@@ -1,6 +1,5 @@
 # direnv
 /.direnv
-/.envrc
 
 # neovim-developer
 /runtime/
