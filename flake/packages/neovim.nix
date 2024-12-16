@@ -53,7 +53,7 @@ let
               // {
                 version = "bundled";
                 src = deps.treesitter;
-                cargoHash = "sha256-gDlb+Y3E4sv9MHXvPmUFYT9DCtnFyPQsvwRaAu5Iu3M=";
+                cargoHash = "sha256-i2/VTf/QEWUhFFpDJi94Eui9wFW4J3ziUoIcxVQN+PI=";
               }
             );
         };
