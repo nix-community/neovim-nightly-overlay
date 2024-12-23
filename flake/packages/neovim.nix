@@ -81,7 +81,7 @@ in
 
   preConfigure = ''
     ${oa.preConfigure}
-    substituteAll cmake.config/versiondef.h.in \
+    substituteInPlace cmake.config/versiondef.h.in \
       --replace-fail '@NVIM_VERSION_PRERELEASE@' '-nightly+${neovim-src.shortRev or "dirty"}'
   '';
 
