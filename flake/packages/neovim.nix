@@ -32,7 +32,10 @@ let
   # The following overrides will only take effect for linux hosts
   linuxOnlyOverrides = lib.optionalAttrs pkgs.stdenv.isLinux {
     gettext = pkgs.gettext.overrideAttrs {
-      src = deps.gettext;
+      # FIXME: nixpkgs' gettext is now at version 0.22.5 whereas neovim's is pinned at 0.20.5
+      # Overriding the source leads to a build error of gettext.
+      # Neovim seems to build fine with nixpkgs' gettext, so we use that in the meantime.
+      # src = deps.gettext;
     };
   };
 
