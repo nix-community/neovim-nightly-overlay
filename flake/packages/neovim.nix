@@ -30,7 +30,7 @@ let
   ];
 
   # The following overrides will only take effect for linux hosts
-  linuxOnlyOverrides = lib.optionalAttrs (!pkgs.stdenv.isDarwin) {
+  linuxOnlyOverrides = lib.optionalAttrs pkgs.stdenv.isLinux {
     gettext = pkgs.gettext.overrideAttrs {
       src = deps.gettext;
     };
