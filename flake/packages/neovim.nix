@@ -37,11 +37,9 @@ let
   };
 
   overrides = {
-    # FIXME: this has been causing problems, see;
-    # https://github.com/nix-community/neovim-nightly-overlay/issues/538
-    # libuv = pkgs.libuv.overrideAttrs {
-    #   src = deps.libuv;
-    # };
+    libuv = pkgs.libuv.overrideAttrs {
+      src = deps.libuv;
+    };
     lua = pkgs.luajit;
     tree-sitter =
       (pkgs.tree-sitter.override {
