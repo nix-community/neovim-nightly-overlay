@@ -41,7 +41,9 @@ let
 
   overrides = {
     libuv = pkgs.libuv.overrideAttrs {
-      src = deps.libuv;
+      # FIXME: overriding libuv casues high CPU usage on darwin
+      # https://github.com/nix-community/neovim-nightly-overlay/issues/538
+      # src = deps.libuv;
     };
     lua = pkgs.luajit;
     tree-sitter =
