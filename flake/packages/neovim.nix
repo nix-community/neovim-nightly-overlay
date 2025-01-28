@@ -56,12 +56,15 @@ let
               // {
                 version = "bundled";
                 src = deps.treesitter;
-                cargoHash = "sha256-4Br490o2NkoIQAwBvS5TsqNdm6l0pIb/fYNWzn9uVcg=";
+                cargoHash = "sha256-ZHAqSlrfsx9aO90Iteo+ECFRGTfWuLJXGLnjm8Narks=";
               }
             );
         };
       }).overrideAttrs
         (oa: {
+          # Disable patches applied by the nixpkgs tree-sitter derivation as they clash with this revision of TS.
+          # The equivalent patching is done below in `postPatch`
+          patches = [ ];
           postPatch = ''
             ${oa.postPatch}
             sed -e 's/playground::serve(.*$/println!("ERROR: web-ui is not available in this nixpkgs build; enable the webUISupport"); std::process::exit(1);/' \
