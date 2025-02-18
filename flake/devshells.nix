@@ -10,8 +10,13 @@
         default = pkgs.mkShell {
           name = "neovim-developer-shell";
           inputsFrom = [
-            config.devShells.minimal
             config.packages.neovim-developer
+          ];
+
+          dontFixCmake = true;
+
+          packages = config.devShells.minimal.nativeBuildInputs ++ [
+            pkgs.clang-tools
           ];
           shellHook = ''
             ${config.packages.neovim-developer.shellHook or ""}
