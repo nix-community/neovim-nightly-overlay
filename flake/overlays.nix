@@ -8,6 +8,7 @@
     { config, ... }:
     {
       overlayAttrs = {
+        neovim-unwrapped = config.packages.neovim;
         inherit (config.packages)
           neovim
           neovim-debug
