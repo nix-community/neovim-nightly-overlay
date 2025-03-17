@@ -17,6 +17,11 @@ neovim-debug.overrideAttrs (oa: {
       # https://clang.llvm.org/docs/AddressSanitizer.html#symbolizing-the-reports
       "-DENABLE_ASAN_UBSAN=ON"
     ];
+
+  nativeBuildInputs = oa.nativeBuildInputs ++ [
+    pkgs.stylua
+  ];
+
   doCheck = pkgs.stdenv.isLinux;
   shellHook = ''
     export VIMRUNTIME=${neovim-src}/runtime
