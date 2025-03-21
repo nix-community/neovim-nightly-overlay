@@ -1,5 +1,14 @@
 # To use the overlay
 
+> [!IMPORTANT]
+> When using this overlay, you might encounter `error: hash mismatch in fixed-output derivation '/nix/store/...-tree-sitter-bundled-vendor-staging.drv'`.\
+> The issue is that `neovim-nightly-overlay` uses and overrides the `treesitter` **from your own package set**. If this `treesitter` is different than the one we expect, you might get a hash mismatch.\
+> To work around this, you can either:
+>
+> - Do not use this flake as an overlay, but simply get its default package output (`inputs.neovim-nightly.packages.${system}.default`)
+> - Override `treesitter` with your own version: `pkgs.neovim.override ...`
+
+
 ## with Flakes
 
 If you are using [flakes] to configure your system, you can either reference the
