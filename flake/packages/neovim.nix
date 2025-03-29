@@ -90,14 +90,4 @@ in
     substituteInPlace cmake.config/versiondef.h.in \
       --replace-fail '@NVIM_VERSION_PRERELEASE@' '-nightly+${neovim-src.shortRev or "dirty"}'
   '';
-
-  buildInputs =
-    with pkgs;
-    [
-      # TODO: remove once upstream nixpkgs updates the base drv
-      (utf8proc.overrideAttrs (_: {
-        src = deps.utf8proc;
-      }))
-    ]
-    ++ oa.buildInputs;
 })
