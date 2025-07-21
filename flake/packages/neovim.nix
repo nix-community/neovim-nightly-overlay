@@ -79,7 +79,8 @@ let
       lib.mapAttrs' (
         name: value: lib.nameValuePair (lib.removePrefix "treesitter_" name) { src = value; }
       ) grammars;
-  } // linuxOnlyOverrides;
+  }
+  // linuxOnlyOverrides;
 in
 (pkgs.neovim-unwrapped.override overrides).overrideAttrs (oa: {
   version = "nightly";

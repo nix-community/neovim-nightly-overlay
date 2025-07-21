@@ -4,16 +4,15 @@
   ...
 }:
 {
-  imports =
-    [
-      ./checks.nix
-      ./ci.nix
-      ./devshells.nix
-      ./overlays.nix
-      ./packages
-    ]
-    ++ lib.optionals (inputs.git-hooks ? flakeModule) [ inputs.git-hooks.flakeModule ]
-    ++ lib.optionals (inputs.treefmt-nix ? flakeModule) [ inputs.treefmt-nix.flakeModule ];
+  imports = [
+    ./checks.nix
+    ./ci.nix
+    ./devshells.nix
+    ./overlays.nix
+    ./packages
+  ]
+  ++ lib.optionals (inputs.git-hooks ? flakeModule) [ inputs.git-hooks.flakeModule ]
+  ++ lib.optionals (inputs.treefmt-nix ? flakeModule) [ inputs.treefmt-nix.flakeModule ];
 
   perSystem =
     { pkgs, ... }:
