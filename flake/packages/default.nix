@@ -28,6 +28,11 @@
           inherit (inputs) neovim-src;
           inherit lib pkgs;
         };
+
+        tree-sitter = import ./tree-sitter.nix {
+          inherit (inputs) neovim-src;
+          inherit lib pkgs;
+        };
       };
     };
 }
