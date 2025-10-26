@@ -1,12 +1,6 @@
+{ inputs, ... }:
 {
-  inputs,
-  lib,
-  ...
-}:
-lib.optionalAttrs (inputs.hercules-ci-effects ? flakeModule) {
-  imports = [
-    inputs.hercules-ci-effects.flakeModule
-  ];
+  imports = [ inputs.hercules-ci-effects.flakeModule ];
 
   hercules-ci.flake-update = {
     enable = true;
