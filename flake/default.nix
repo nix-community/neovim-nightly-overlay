@@ -1,32 +1,20 @@
-{
-  inputs,
-  lib,
-  ...
-}:
+{ inputs, ... }:
 {
   imports = [
-    ./checks.nix
-    ./ci.nix
-    ./devshells.nix
+    inputs.flake-parts.flakeModules.partitions
     ./overlays.nix
     ./packages
-  ]
-  ++ lib.optionals (inputs.git-hooks ? flakeModule) [ inputs.git-hooks.flakeModule ]
-  ++ lib.optionals (inputs.treefmt-nix ? flakeModule) [ inputs.treefmt-nix.flakeModule ];
+  ];
 
-  perSystem =
-    { pkgs, ... }:
-    lib.optionalAttrs (inputs.treefmt-nix ? flakeModule) {
-      treefmt.config = {
-        projectRootFile = "flake.nix";
-        flakeCheck = true;
+  partitionedAttrs = {
+    checks = "dev";
+    devShells = "dev";
+    formatter = "dev";
+    herculesCI = "dev";
+  };
 
-        programs = {
-          nixfmt.enable = true;
-        };
-      };
-    }
-    // lib.optionalAttrs (inputs.git-hooks ? flakeModule) {
-      pre-commit.settings.hooks.treefmt.enable = true;
-    };
+  partitions.dev = {
+    extraInputsFlake = ./dev;
+    module = ./dev;
+  };
 }
