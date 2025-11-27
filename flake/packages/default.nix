@@ -21,7 +21,7 @@
           default = config.packages.neovim;
 
           tree-sitter = import ./tree-sitter.nix {
-            inherit pkgs neovim-dependencies;
+            inherit lib pkgs neovim-dependencies;
           };
 
           neovim = import ./neovim.nix {
