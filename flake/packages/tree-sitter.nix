@@ -12,7 +12,7 @@
         // {
           version = "bundled";
           src = neovim-dependencies.treesitter;
-          cargoHash = "sha256-hdjHU9zAo320XSp0oIXUsGMyoVBAJrjvgzQqXO4DpUM=";
+          cargoHash = "sha256-kHYLaiCHyKG+DL+T2s8yumNHFfndrB5aWs7ept0X4CM=";
         }
       );
   };
