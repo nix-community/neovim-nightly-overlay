@@ -40,7 +40,7 @@ let
   // linuxOnlyOverrides;
 in
 (pkgs.neovim-unwrapped.override overrides).overrideAttrs (oa: {
-  version = "nightly";
+  version = "${neovim-src.shortRev or "dirty"}";
   inherit src;
 
   preConfigure = ''
