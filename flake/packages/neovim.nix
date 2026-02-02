@@ -26,7 +26,7 @@ let
       # https://github.com/nix-community/neovim-nightly-overlay/issues/538
       # src = deps.libuv;
     };
-    lua = pkgs.luajit;
+    lua5_1 = pkgs.luajit;
     inherit tree-sitter;
 
     treesitter-parsers =
