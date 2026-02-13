@@ -1,10 +1,11 @@
 {
   neovim,
-  pkgs,
+  stdenv,
+  llvmPackages_latest,
   ...
 }:
 (neovim.override {
-  stdenv = if pkgs.stdenv.isLinux then pkgs.llvmPackages_latest.stdenv else pkgs.stdenv;
+  stdenv = if stdenv.isLinux then llvmPackages_latest.stdenv else stdenv;
 }).overrideAttrs
   (oa: {
     # Build neovim in debug mode
