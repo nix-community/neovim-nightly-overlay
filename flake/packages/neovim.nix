@@ -4,7 +4,7 @@
   stdenv,
   gettext,
   libuv,
-  neovim-unwrapped,
+  baseNeovimUnwrapped,
   neovim-dependencies,
   tree-sitter,
   ...
@@ -41,7 +41,7 @@ let
   }
   // linuxOnlyOverrides;
 in
-(neovim-unwrapped.override overrides).overrideAttrs (oa: {
+(baseNeovimUnwrapped.override overrides).overrideAttrs (oa: {
   version = "${neovim-src.shortRev or "dirty"}";
   inherit src;
 
