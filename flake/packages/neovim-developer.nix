@@ -1,8 +1,6 @@
 {
   neovim-debug,
-  stdenv,
-  luajit,
-  stylua,
+  pkgs,
   lib,
   neovim-src,
   ...
@@ -11,20 +9,20 @@ neovim-debug.overrideAttrs (oa: {
   cmakeFlags =
     oa.cmakeFlags
     ++ [
-      (lib.cmakeFeature "LUACHECK_PRG" (lib.getExe luajit.pkgs.luacheck))
+      (lib.cmakeFeature "LUACHECK_PRG" (lib.getExe pkgs.luajit.pkgs.luacheck))
       (lib.cmakeBool "ENABLE_LTO" false)
     ]
-    ++ lib.optionals stdenv.isLinux [
+    ++ lib.optionals pkgs.stdenv.isLinux [
       # https://github.com/google/sanitizers/wiki/AddressSanitizerFlags
       # https://clang.llvm.org/docs/AddressSanitizer.html#symbolizing-the-reports
       (lib.cmakeBool "ENABLE_ASAN_UBSAN" true)
     ];
 
   nativeBuildInputs = oa.nativeBuildInputs ++ [
-    stylua
+    pkgs.stylua
   ];
 
-  doCheck = stdenv.isLinux;
+  doCheck = pkgs.stdenv.isLinux;
   shellHook = ''
     export VIMRUNTIME=${neovim-src}/runtime
   '';

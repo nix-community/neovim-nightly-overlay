@@ -1,10 +1,7 @@
 {
   neovim-src,
   lib,
-  stdenv,
-  gettext,
-  libuv,
-  neovim-unwrapped,
+  pkgs,
   neovim-dependencies,
   tree-sitter,
   ...
@@ -14,8 +11,8 @@ let
   deps = neovim-dependencies;
 
   # The following overrides will only take effect for linux hosts
-  linuxOnlyOverrides = lib.optionalAttrs stdenv.isLinux {
-    gettext = gettext.overrideAttrs {
+  linuxOnlyOverrides = lib.optionalAttrs pkgs.stdenv.isLinux {
+    gettext = pkgs.gettext.overrideAttrs {
       # FIXME: nixpkgs' gettext is now at version 0.22.5 whereas neovim's is pinned at 0.20.5
       # Overriding the source leads to a build error of gettext.
       # Neovim seems to build fine with nixpkgs' gettext, so we use that in the meantime.
@@ -24,7 +21,7 @@ let
   };
 
   overrides = {
-    libuv = libuv.overrideAttrs {
+    libuv = pkgs.libuv.overrideAttrs {
       # FIXME: overriding libuv casues high CPU usage on darwin
       # https://github.com/nix-community/neovim-nightly-overlay/issues/538
       # src = deps.libuv;
@@ -41,7 +38,7 @@ let
   }
   // linuxOnlyOverrides;
 in
-(neovim-unwrapped.override overrides).overrideAttrs (oa: {
+(pkgs.neovim-unwrapped.override overrides).overrideAttrs (oa: {
   version = "${neovim-src.shortRev or "dirty"}";
   inherit src;
 

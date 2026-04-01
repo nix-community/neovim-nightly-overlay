@@ -1,6 +1,6 @@
 {
   lib,
-  fetchurl,
+  pkgs,
   neovim-src,
   ...
 }:
@@ -23,5 +23,5 @@ lib.pipe "${neovim-src}/cmake.deps/deps.txt" [
       };
     }
   ))
-  (builtins.mapAttrs (lib.const fetchurl))
+  (builtins.mapAttrs (lib.const pkgs.fetchurl))
 ]
