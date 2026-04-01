@@ -1,19 +1,16 @@
 {
   lib,
-  tree-sitter,
-  clang,
-  libclang,
-  rustPlatform,
+  pkgs,
   neovim-dependencies,
 }:
 let
   cargoHash = "sha256-zh6KsnZ7s6VXGCggoYbLGeGnEZ7g7anjkz8C5/L4yXQ=";
 in
-tree-sitter.overrideAttrs (oa: {
+pkgs.tree-sitter.overrideAttrs (oa: {
   src = neovim-dependencies.treesitter;
   version = "bundled";
   inherit cargoHash;
-  cargoDeps = rustPlatform.fetchCargoVendor {
+  cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
     name = "${oa.pname}-cargo-deps";
     src = neovim-dependencies.treesitter;
     hash = cargoHash;
@@ -24,10 +21,10 @@ tree-sitter.overrideAttrs (oa: {
 
   # clang is needed by the quickjs-sys crate to compile quickjs
   nativeBuildInputs = [
-    clang
+    pkgs.clang
   ]
   ++ oa.nativeBuildInputs;
-  env.LIBCLANG_PATH = "${lib.getLib libclang}/lib";
+  env.LIBCLANG_PATH = "${lib.getLib pkgs.libclang}/lib";
 
   postPatch = ''
     ${oa.postPatch}

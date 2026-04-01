@@ -12,30 +12,33 @@
     {
       packages =
         let
-          neovim-dependencies = pkgs.callPackage ./neovim-dependencies.nix {
+          neovim-dependencies = import ./neovim-dependencies.nix {
             inherit (inputs) neovim-src;
+            inherit lib pkgs;
           };
         in
         {
           default = config.packages.neovim;
 
-          tree-sitter = pkgs.callPackage ./tree-sitter.nix {
-            inherit neovim-dependencies;
+          tree-sitter = import ./tree-sitter.nix {
+            inherit lib pkgs neovim-dependencies;
           };
 
-          neovim = pkgs.callPackage ./neovim.nix {
+          neovim = import ./neovim.nix {
             inherit (inputs) neovim-src;
-            inherit neovim-dependencies;
+            inherit lib pkgs neovim-dependencies;
             inherit (config.packages) tree-sitter;
           };
 
-          neovim-debug = pkgs.callPackage ./neovim-debug.nix {
+          neovim-debug = import ./neovim-debug.nix {
             inherit (config.packages) neovim;
+            inherit pkgs;
           };
 
-          neovim-developer = pkgs.callPackage ./neovim-developer.nix {
+          neovim-developer = import ./neovim-developer.nix {
             inherit (config.packages) neovim-debug;
             inherit (inputs) neovim-src;
+            inherit lib pkgs;
           };
         };
     };
