@@ -27,7 +27,6 @@
             inherit (inputs) neovim-src;
             inherit neovim-dependencies;
             inherit (config.packages) tree-sitter;
-            baseNeovimUnwrapped = pkgs.neovim-unwrapped;
           };
 
           neovim-debug = pkgs.callPackage ./neovim-debug.nix {
