@@ -2,10 +2,13 @@
   neovim-debug,
   pkgs,
   lib,
+  stylua,
+  stdenv,
   neovim-src,
   ...
 }:
 neovim-debug.overrideAttrs (oa: {
+  pname = "${oa.pname}-developer";
   cmakeFlags =
     oa.cmakeFlags
     ++ [
@@ -19,13 +22,10 @@ neovim-debug.overrideAttrs (oa: {
     ];
 
   nativeBuildInputs = oa.nativeBuildInputs ++ [
-    pkgs.stylua
+    stylua
   ];
 
-  doCheck = pkgs.stdenv.isLinux;
-  shellHook = ''
-    export VIMRUNTIME=${neovim-src}/runtime
-  '';
+  doCheck = stdenv.isLinux;
 
   # This package can be "failing" as soon as a memory leak is detected
   ignoreFailure = true;
