@@ -46,7 +46,6 @@
             include-what-you-use
             jq
             lua-language-server
-            luajit.pkgs.luacheck
             shellcheck
           ];
           shellHook = ''
