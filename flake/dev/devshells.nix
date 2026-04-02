@@ -3,21 +3,32 @@
     {
       pkgs,
       config,
+      lib,
       ...
     }:
     {
       devShells = {
         default = pkgs.mkShell {
           name = "neovim-developer-shell";
-          inputsFrom = [
-            config.packages.neovim-developer
-          ];
+          inputsFrom =
+            let
+              neovim-developer-ccache = config.packages.neovim-developer.overrideAttrs (oa: {
+                cmakeFlags = oa.cmakeFlags ++ [ (lib.cmakeFeature "CACHE_PRG" (lib.getExe pkgs.ccache)) ];
+
+                # avoid neovim-debug's patch to cmake.config/versiondef.h.in to minimize
+                # the noisy git diff when patching neovim
+                preConfigure = pkgs.neovim-unwrapped.preConfigure;
+              });
+            in
+            [ neovim-developer-ccache ];
 
           packages = config.devShells.minimal.nativeBuildInputs ++ [
+            pkgs.stylua
+            pkgs.include-what-you-use
             pkgs.clang-tools
           ];
+
           shellHook = ''
-            ${config.packages.neovim-developer.shellHook or ""}
             export ASAN_SYMBOLIZER_PATH=${pkgs.llvm_18}/bin/llvm-symbolizer
             export NVIM_PYTHON_LOG_LEVEL=DEBUG
             export NVIM_LOG_FILE=/tmp/nvim.log
@@ -25,7 +36,7 @@
             # ASAN_OPTIONS=detect_leaks=1
             export ASAN_OPTIONS="log_path=./test.log:abort_on_error=1"
 
-            # for treesitter functionaltests
+            # treesitter parsers needed when running `make functionaltests`
             mkdir -p runtime/parser
             cp -f ${pkgs.vimPlugins.nvim-treesitter.builtGrammars.c}/parser runtime/parser/c.so
           '';

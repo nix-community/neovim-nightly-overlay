@@ -1,5 +1,6 @@
 {
   neovim-debug,
+  neovim-unwrapped,
   pkgs,
   lib,
   stylua,
