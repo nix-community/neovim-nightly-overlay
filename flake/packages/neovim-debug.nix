@@ -29,7 +29,7 @@
         echo "Detecting neovim runtime folder: VIMRUNTIME set to $VIMRUNTIME"
       fi
       echo "export NVIM_LOG_FILE to where you want to save the log"
-      export NVIM_LOG_FILE="$PWD/nvim.log"
+      export NVIM_LOG_FILE="/tmp/nvim.log"
     '';
 
     # Do not explicitly disallow any paths to be referenced by the output
