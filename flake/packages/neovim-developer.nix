@@ -1,11 +1,7 @@
 {
   neovim-debug,
-  neovim-unwrapped,
   pkgs,
   lib,
-  stylua,
-  stdenv,
-  neovim-src,
   ...
 }:
 neovim-debug.overrideAttrs (oa: {
@@ -22,10 +18,10 @@ neovim-debug.overrideAttrs (oa: {
     ];
 
   nativeBuildInputs = oa.nativeBuildInputs ++ [
-    stylua
+    pkgs.stylua
   ];
 
-  doCheck = stdenv.isLinux;
+  doCheck = pkgs.stdenv.isLinux;
 
   # This package can be "failing" as soon as a memory leak is detected
   ignoreFailure = true;
