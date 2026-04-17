@@ -47,4 +47,16 @@ in
     substituteInPlace cmake.config/versiondef.h.in \
       --replace-fail '@NVIM_VERSION_PRERELEASE@' '-nightly+${neovim-src.shortRev or "dirty"}'
   '';
+
+  # Workaround: neovim renamed nvim.desktop to org.neovim.nvim.desktop,
+  # but the nixpkgs wrapper still references the old name.
+  # Create a compatibility copy until nixpkgs is updated.
+  # https://github.com/nix-community/neovim-nightly-overlay/issues/1244
+  postInstall =
+    (oa.postInstall or "")
+    + lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
+      if [ ! -e $out/share/applications/nvim.desktop ]; then
+        cp $out/share/applications/org.neovim.nvim.desktop $out/share/applications/nvim.desktop 2>/dev/null || true
+      fi
+    '';
 })
