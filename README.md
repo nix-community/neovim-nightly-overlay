@@ -64,6 +64,12 @@ The `neovim-nightly-overlay` flake itself is updated every day to use the latest
 
 However, your own flake needs to be synced **manually**. Remember to regularly update your flake (e.g. by using `nix flake update`) to get a most recent neovim build.
 
+### How to test a neovim pull-request ?
+
+You can select an alternative branch of neovim via nix run
+`github:nix-community/neovim-nightly-overlay' --override-input neovim-src github:neovim/neovim?ref=pull/XXXX/head` (replace XXXX with the PR number).
+
+
 ## without Flakes
 
 Add the overlay to your home.nix (home-manager) or configuration.nix (nixos):
