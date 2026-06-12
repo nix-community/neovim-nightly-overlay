@@ -42,6 +42,13 @@ in
   version = "${neovim-src.shortRev or "dirty"}";
   inherit src;
 
+  # Workaround: nixpkgs applies CVE-2026-11487.patch, but the fix is already
+  # part of nightly (neovim/neovim@f83e0dca), so it fails as already applied.
+  # Remove once nixpkgs drops the patch (NixOS/nixpkgs#530655).
+  patches = builtins.filter (patch: !lib.hasInfix "CVE-2026-11487" (toString patch)) (
+    oa.patches or [ ]
+  );
+
   preConfigure = ''
     ${oa.preConfigure}
     substituteInPlace cmake.config/versiondef.h.in \
