@@ -30,7 +30,12 @@ let
 
     treesitter-parsers =
       let
-        grammars = lib.filterAttrs (name: _: lib.hasPrefix "treesitter_" name) deps;
+        # Exclude prebuilt `treesitter_*_wasm` parsers (neovim/neovim#40304):
+        # they're .wasm binaries, not grammar sources, so buildGrammar can't
+        # unpack them. Unused here anyway, as nixpkgs builds without wasmtime.
+        grammars = lib.filterAttrs (
+          name: _: lib.hasPrefix "treesitter_" name && !lib.hasSuffix "_wasm" name
+        ) deps;
       in
       lib.mapAttrs' (
         name: value: lib.nameValuePair (lib.removePrefix "treesitter_" name) { src = value; }
