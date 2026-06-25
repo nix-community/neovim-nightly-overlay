@@ -10,6 +10,8 @@ let
   src = neovim-src;
   deps = neovim-dependencies;
   treesitterDeps = lib.filterAttrs (name: _: lib.hasPrefix "treesitter_" name) deps;
+  wasmParserDeps = lib.filterAttrs (name: _: lib.hasSuffix "_wasm" name) treesitterDeps;
+  hasWasmCmakeFlag = cmakeFlags: lib.any (lib.hasPrefix "-DENABLE_WASMTIME") cmakeFlags;
 
   # The following overrides will only take effect for linux hosts
   linuxOnlyOverrides = lib.optionalAttrs pkgs.stdenv.isLinux {
@@ -69,11 +71,11 @@ in
   preConfigure = ''
     ${oa.preConfigure}
   ''
-  + lib.optionalString (lib.any (lib.hasPrefix "-DENABLE_WASMTIME") (oa.cmakeFlags or [ ])) (
+  + lib.optionalString (hasWasmCmakeFlag oa.cmakeFlags) (
     lib.concatStrings (
       lib.mapAttrsToList (name: value: ''
         install -Dm444 ${value} $out/lib/nvim/parser/${lib.removeSuffix "_wasm" (lib.removePrefix "treesitter_" name)}.wasm
-      '') (lib.filterAttrs (name: _: lib.hasSuffix "_wasm" name) treesitterDeps)
+      '') wasmParserDeps
     )
   )
   + ''
@@ -87,6 +89,15 @@ in
   # https://github.com/nix-community/neovim-nightly-overlay/issues/1244
   postInstall =
     (oa.postInstall or "")
+    # Neovim's WASM tests compare native and WASM lua parsers, so remove
+    # duplicate native runtime parsers only after checks run.
+    + lib.optionalString (hasWasmCmakeFlag oa.cmakeFlags) (
+      lib.concatStrings (
+        lib.mapAttrsToList (name: _: ''
+          rm -f $out/lib/nvim/parser/${lib.removeSuffix "_wasm" (lib.removePrefix "treesitter_" name)}.so
+        '') wasmParserDeps
+      )
+    )
     + lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
       if [ ! -e $out/share/applications/nvim.desktop ]; then
         cp $out/share/applications/org.neovim.nvim.desktop $out/share/applications/nvim.desktop 2>/dev/null || true
