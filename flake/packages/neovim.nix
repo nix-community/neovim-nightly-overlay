@@ -54,6 +54,23 @@ in
     oa.patches or [ ]
   );
 
+  postPatch =
+    # NOTE: Upstream nixpkgs needed to loosen requirements on stable release of neovim.
+    # Nightly already has support for loosened requirements.
+    lib.replaceStrings
+      [
+        ''
+          substituteInPlace src/nvim/CMakeLists.txt \
+            --replace-fail \
+              'find_package(Wasmtime 36.0.6 EXACT REQUIRED)' \
+              'find_package(Wasmtime REQUIRED)'
+        ''
+      ]
+      [
+        ""
+      ]
+      (oa.postPatch or "");
+
   preConfigure = ''
     ${oa.preConfigure}
     substituteInPlace cmake.config/versiondef.h.in \
