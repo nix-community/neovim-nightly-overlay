@@ -9,6 +9,7 @@
 let
   src = neovim-src;
   deps = neovim-dependencies;
+  treesitterDeps = lib.filterAttrs (name: _: lib.hasPrefix "treesitter_" name) deps;
 
   # The following overrides will only take effect for linux hosts
   linuxOnlyOverrides = lib.optionalAttrs pkgs.stdenv.isLinux {
@@ -29,17 +30,11 @@ let
     inherit tree-sitter;
 
     treesitter-parsers =
-      let
-        # Exclude prebuilt `treesitter_*_wasm` parsers (neovim/neovim#40304):
-        # they're .wasm binaries, not grammar sources, so buildGrammar can't
-        # unpack them. Unused here anyway, as nixpkgs builds without wasmtime.
-        grammars = lib.filterAttrs (
-          name: _: lib.hasPrefix "treesitter_" name && !lib.hasSuffix "_wasm" name
-        ) deps;
-      in
+      # `treesitter_*` deps are grammar sources. `treesitter_*_wasm` deps are
+      # prebuilt parser binaries and get installed separately when supported.
       lib.mapAttrs' (
         name: value: lib.nameValuePair (lib.removePrefix "treesitter_" name) { src = value; }
-      ) grammars;
+      ) (lib.filterAttrs (name: _: !lib.hasSuffix "_wasm" name) treesitterDeps);
   }
   // linuxOnlyOverrides;
 in
@@ -73,6 +68,15 @@ in
 
   preConfigure = ''
     ${oa.preConfigure}
+  ''
+  + lib.optionalString (lib.any (lib.hasPrefix "-DENABLE_WASMTIME") (oa.cmakeFlags or [ ])) (
+    lib.concatStrings (
+      lib.mapAttrsToList (name: value: ''
+        install -Dm444 ${value} $out/lib/nvim/parser/${lib.removeSuffix "_wasm" (lib.removePrefix "treesitter_" name)}.wasm
+      '') (lib.filterAttrs (name: _: lib.hasSuffix "_wasm" name) treesitterDeps)
+    )
+  )
+  + ''
     substituteInPlace cmake.config/versiondef.h.in \
       --replace-fail '@NVIM_VERSION_PRERELEASE@' '-nightly+${neovim-src.shortRev or "dirty"}'
   '';
