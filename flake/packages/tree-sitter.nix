@@ -4,7 +4,7 @@
   neovim-dependencies,
 }:
 let
-  cargoHash = "sha256-PaSMjcukkLqYNJFyK0OV44Vq9KpyaSJcODhFeSHCitE=";
+  cargoHash = "sha256-2jEduknhqxuOnlFWja83QNUSs4mX3rhNjLjxppozm+0=";
 in
 pkgs.tree-sitter.overrideAttrs (oa: {
   src = neovim-dependencies.treesitter;
