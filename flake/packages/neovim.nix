@@ -68,6 +68,13 @@ in
       ]
       (oa.postPatch or "");
 
+  # Setting XDG_RUNTIME_DIR expliclity to TMPDIR prevents stdpath('run') from
+  # falling back to '$TMPDIR/nvim.<user>/<rand>' which (adding cmake 'Xtest_tmpdir_<suite')
+  # makes functionaltest fail due to socket path being too long (104 bytes on darwin)
+  preCheck = (oa.preCheck or "") + ''
+    export XDG_RUNTIME_DIR="$(mktemp -d)"
+  '';
+
   preConfigure = ''
     ${oa.preConfigure}
   ''
