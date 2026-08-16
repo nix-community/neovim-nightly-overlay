@@ -11,7 +11,7 @@ neovim-debug.overrideAttrs (oa: {
     ++ [
       (lib.cmakeBool "ENABLE_LTO" false)
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       # https://github.com/google/sanitizers/wiki/AddressSanitizerFlags
       # https://clang.llvm.org/docs/AddressSanitizer.html#symbolizing-the-reports
       (lib.cmakeBool "ENABLE_ASAN_UBSAN" true)
@@ -21,7 +21,7 @@ neovim-debug.overrideAttrs (oa: {
     pkgs.stylua
   ];
 
-  doCheck = pkgs.stdenv.isLinux;
+  doCheck = pkgs.stdenv.buildPlatform.isLinux;
 
   shellHook = ''
     ${oa.shellHook or ""}

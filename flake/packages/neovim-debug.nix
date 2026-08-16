@@ -6,7 +6,7 @@
   ...
 }:
 (neovim.override {
-  stdenv = if stdenv.isLinux then llvmPackages_latest.stdenv else stdenv;
+  stdenv = if stdenv.hostPlatform.isLinux then llvmPackages_latest.stdenv else stdenv;
 }).overrideAttrs
   (oa: {
     pname = "${oa.pname}-debug";

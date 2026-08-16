@@ -14,7 +14,7 @@ let
   hasWasmCmakeFlag = cmakeFlags: lib.any (lib.hasPrefix "-DENABLE_WASMTIME") cmakeFlags;
 
   # The following overrides will only take effect for linux hosts
-  linuxOnlyOverrides = lib.optionalAttrs pkgs.stdenv.isLinux {
+  linuxOnlyOverrides = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
     gettext = pkgs.gettext.overrideAttrs {
       # FIXME: nixpkgs' gettext is now at version 0.22.5 whereas neovim's is pinned at 0.20.5
       # Overriding the source leads to a build error of gettext.
