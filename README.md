@@ -19,13 +19,13 @@ package provided by this flake directly, e.g. for nixos:
 {
   programs.neovim = {
     enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   # or
 
   environment.systemPackages = [
-    inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+    inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }
 ```
