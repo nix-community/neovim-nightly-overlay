@@ -21,10 +21,10 @@ pkgs.tree-sitter.overrideAttrs (oa: {
 
   # clang is needed by the quickjs-sys crate to compile quickjs
   nativeBuildInputs = [
-    pkgs.clang
+    pkgs.buildPackages.clang
   ]
   ++ oa.nativeBuildInputs;
-  env.LIBCLANG_PATH = "${lib.getLib pkgs.libclang}/lib";
+  env.LIBCLANG_PATH = "${lib.getLib pkgs.buildPackages.libclang}/lib";
 
   postPatch = ''
     ${oa.postPatch}
