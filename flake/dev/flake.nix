@@ -3,8 +3,6 @@
 
   inputs = {
     root.url = "path:../..";
-    nixpkgs.follows = "root/nixpkgs";
-    flake-parts.follows = "root/flake-parts";
 
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -13,23 +11,19 @@
 
     hercules-ci-effects = {
       url = "github:hercules-ci/hercules-ci-effects";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.flake-parts.follows = "root/flake-parts";
+      inputs.nixpkgs.follows = "root/nixpkgs";
     };
 
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.nixpkgs.follows = "root/nixpkgs";
     };
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "root/nixpkgs";
     };
   };
 
