@@ -44,6 +44,7 @@
         ],
         "gitignore": "gitignore",
         "nixpkgs": [
+          "root",
           "nixpkgs"
         ]
       },
@@ -85,9 +86,11 @@
     "hercules-ci-effects": {
       "inputs": {
         "flake-parts": [
+          "root",
           "flake-parts"
         ],
         "nixpkgs": [
+          "root",
           "nixpkgs"
         ]
       },
@@ -140,16 +143,8 @@
     "root": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "flake-parts": [
-          "root",
-          "flake-parts"
-        ],
         "git-hooks": "git-hooks",
         "hercules-ci-effects": "hercules-ci-effects",
-        "nixpkgs": [
-          "root",
-          "nixpkgs"
-        ],
         "root": "root_2",
         "treefmt-nix": "treefmt-nix"
       }
@@ -173,6 +168,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
+          "root",
           "nixpkgs"
         ]
       },
